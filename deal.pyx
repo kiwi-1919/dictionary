@@ -23,7 +23,7 @@ cdef list find_txt(str txt_dir):
     return l
 cdef void parse_sents(str path):
     solve=spacy.load('en_core_web_lg')
-    solve.max_length=1000000
+    solve.max_length=2000000
     with open(path,'rt',encoding='utf-8') as rf:
         with open(os.path.splitext(path)[0]+'.csv','wt',encoding='utf-8') as wf:
             c=csv.writer(wf)
@@ -56,7 +56,7 @@ cdef void parse_all_word(str path):
     fclose(wf)
 cdef list parse(str string):
     solve=spacy.load('en_core_web_lg')
-    solve.max_length=1000000
+    solve.max_length=2000000
     doc=solve(string)
     return [each.lemma_ for each in doc]
 def setup():
