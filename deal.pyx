@@ -5,7 +5,6 @@ import os
 import tqdm
 from libc.stdio cimport *
 import csv
-import re
 cdef str char_p_to_str(char* c):
     cdef bytes b=<bytes>c
     cdef str res=b.decode()
