@@ -1352,7 +1352,7 @@ static PyObject *__pyx_n_s_writerow;
 static PyObject *__pyx_n_u_wt;
 static PyObject *__pyx_n_u_z;
 static PyObject *__pyx_pf_4deal_setup(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
-static PyObject *__pyx_int_1000000;
+static PyObject *__pyx_int_2000000;
 static PyObject *__pyx_tuple_;
 static PyObject *__pyx_tuple__3;
 static PyObject *__pyx_codeobj__4;
@@ -1746,7 +1746,7 @@ static PyObject *__pyx_f_4deal_find_txt(PyObject *__pyx_v_txt_dir) {
  *     return l
  * cdef void parse_sents(str path):             # <<<<<<<<<<<<<<
  *     solve=spacy.load('en_core_web_lg')
- *     solve.max_length=1000000
+ *     solve.max_length=2000000
  */
 
 static void __pyx_f_4deal_parse_sents(PyObject *__pyx_v_path) {
@@ -1783,7 +1783,7 @@ static void __pyx_f_4deal_parse_sents(PyObject *__pyx_v_path) {
  *     return l
  * cdef void parse_sents(str path):
  *     solve=spacy.load('en_core_web_lg')             # <<<<<<<<<<<<<<
- *     solve.max_length=1000000
+ *     solve.max_length=2000000
  *     with open(path,'rt',encoding='utf-8') as rf:
  */
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_spacy); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 25, __pyx_L1_error)
@@ -1812,15 +1812,15 @@ static void __pyx_f_4deal_parse_sents(PyObject *__pyx_v_path) {
   /* "deal.pyx":26
  * cdef void parse_sents(str path):
  *     solve=spacy.load('en_core_web_lg')
- *     solve.max_length=1000000             # <<<<<<<<<<<<<<
+ *     solve.max_length=2000000             # <<<<<<<<<<<<<<
  *     with open(path,'rt',encoding='utf-8') as rf:
  *         with open(os.path.splitext(path)[0]+'.csv','wt',encoding='utf-8') as wf:
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_solve, __pyx_n_s_max_length, __pyx_int_1000000) < 0) __PYX_ERR(0, 26, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_solve, __pyx_n_s_max_length, __pyx_int_2000000) < 0) __PYX_ERR(0, 26, __pyx_L1_error)
 
   /* "deal.pyx":27
  *     solve=spacy.load('en_core_web_lg')
- *     solve.max_length=1000000
+ *     solve.max_length=2000000
  *     with open(path,'rt',encoding='utf-8') as rf:             # <<<<<<<<<<<<<<
  *         with open(os.path.splitext(path)[0]+'.csv','wt',encoding='utf-8') as wf:
  *             c=csv.writer(wf)
@@ -1876,7 +1876,7 @@ static void __pyx_f_4deal_parse_sents(PyObject *__pyx_v_path) {
           __pyx_t_1 = 0;
 
           /* "deal.pyx":28
- *     solve.max_length=1000000
+ *     solve.max_length=2000000
  *     with open(path,'rt',encoding='utf-8') as rf:
  *         with open(os.path.splitext(path)[0]+'.csv','wt',encoding='utf-8') as wf:             # <<<<<<<<<<<<<<
  *             c=csv.writer(wf)
@@ -2123,7 +2123,7 @@ static void __pyx_f_4deal_parse_sents(PyObject *__pyx_v_path) {
                   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
                   /* "deal.pyx":28
- *     solve.max_length=1000000
+ *     solve.max_length=2000000
  *     with open(path,'rt',encoding='utf-8') as rf:
  *         with open(os.path.splitext(path)[0]+'.csv','wt',encoding='utf-8') as wf:             # <<<<<<<<<<<<<<
  *             c=csv.writer(wf)
@@ -2206,7 +2206,7 @@ static void __pyx_f_4deal_parse_sents(PyObject *__pyx_v_path) {
 
           /* "deal.pyx":27
  *     solve=spacy.load('en_core_web_lg')
- *     solve.max_length=1000000
+ *     solve.max_length=2000000
  *     with open(path,'rt',encoding='utf-8') as rf:             # <<<<<<<<<<<<<<
  *         with open(os.path.splitext(path)[0]+'.csv','wt',encoding='utf-8') as wf:
  *             c=csv.writer(wf)
@@ -2291,7 +2291,7 @@ static void __pyx_f_4deal_parse_sents(PyObject *__pyx_v_path) {
  *     return l
  * cdef void parse_sents(str path):             # <<<<<<<<<<<<<<
  *     solve=spacy.load('en_core_web_lg')
- *     solve.max_length=1000000
+ *     solve.max_length=2000000
  */
 
   /* function exit code */
@@ -2871,7 +2871,7 @@ static void __pyx_f_4deal_parse_all_word(PyObject *__pyx_v_path) {
  *     fclose(wf)
  * cdef list parse(str string):             # <<<<<<<<<<<<<<
  *     solve=spacy.load('en_core_web_lg')
- *     solve.max_length=1000000
+ *     solve.max_length=2000000
  */
 
 static PyObject *__pyx_f_4deal_parse(PyObject *__pyx_v_string) {
@@ -2894,7 +2894,7 @@ static PyObject *__pyx_f_4deal_parse(PyObject *__pyx_v_string) {
  *     fclose(wf)
  * cdef list parse(str string):
  *     solve=spacy.load('en_core_web_lg')             # <<<<<<<<<<<<<<
- *     solve.max_length=1000000
+ *     solve.max_length=2000000
  *     doc=solve(string)
  */
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_spacy); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 58, __pyx_L1_error)
@@ -2923,15 +2923,15 @@ static PyObject *__pyx_f_4deal_parse(PyObject *__pyx_v_string) {
   /* "deal.pyx":59
  * cdef list parse(str string):
  *     solve=spacy.load('en_core_web_lg')
- *     solve.max_length=1000000             # <<<<<<<<<<<<<<
+ *     solve.max_length=2000000             # <<<<<<<<<<<<<<
  *     doc=solve(string)
  *     return [each.lemma_ for each in doc]
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_solve, __pyx_n_s_max_length, __pyx_int_1000000) < 0) __PYX_ERR(0, 59, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_solve, __pyx_n_s_max_length, __pyx_int_2000000) < 0) __PYX_ERR(0, 59, __pyx_L1_error)
 
   /* "deal.pyx":60
  *     solve=spacy.load('en_core_web_lg')
- *     solve.max_length=1000000
+ *     solve.max_length=2000000
  *     doc=solve(string)             # <<<<<<<<<<<<<<
  *     return [each.lemma_ for each in doc]
  * def setup():
@@ -2956,7 +2956,7 @@ static PyObject *__pyx_f_4deal_parse(PyObject *__pyx_v_string) {
   __pyx_t_1 = 0;
 
   /* "deal.pyx":61
- *     solve.max_length=1000000
+ *     solve.max_length=2000000
  *     doc=solve(string)
  *     return [each.lemma_ for each in doc]             # <<<<<<<<<<<<<<
  * def setup():
@@ -3029,7 +3029,7 @@ static PyObject *__pyx_f_4deal_parse(PyObject *__pyx_v_string) {
  *     fclose(wf)
  * cdef list parse(str string):             # <<<<<<<<<<<<<<
  *     solve=spacy.load('en_core_web_lg')
- *     solve.max_length=1000000
+ *     solve.max_length=2000000
  */
 
   /* function exit code */
@@ -3312,7 +3312,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
   /* "deal.pyx":28
- *     solve.max_length=1000000
+ *     solve.max_length=2000000
  *     with open(path,'rt',encoding='utf-8') as rf:
  *         with open(os.path.splitext(path)[0]+'.csv','wt',encoding='utf-8') as wf:             # <<<<<<<<<<<<<<
  *             c=csv.writer(wf)
@@ -3342,7 +3342,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
 
 static CYTHON_SMALL_CODE int __Pyx_InitGlobals(void) {
   if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(0, 1, __pyx_L1_error);
-  __pyx_int_1000000 = PyInt_FromLong(1000000L); if (unlikely(!__pyx_int_1000000)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_int_2000000 = PyInt_FromLong(2000000L); if (unlikely(!__pyx_int_2000000)) __PYX_ERR(0, 1, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
