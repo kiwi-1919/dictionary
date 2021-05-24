@@ -1,9 +1,8 @@
 import deal
-import os
 
 
 def run():
-    deal.setup(os.curdir)
+    deal.setup()
 
 
 if __name__ == '__main__':
