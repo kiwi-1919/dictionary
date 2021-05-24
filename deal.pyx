@@ -25,13 +25,13 @@ cdef void parse_sents(str path):
     solve=spacy.load('en_core_web_lg')
     solve.max_length=2000000
     with open(path,'rt',encoding='utf-8') as rf:
-        with open(os.path.splitext(path)[0]+'.csv','wt',encoding='utf-8') as wf:
+        with open(os.path.split(path)[1]+'.csv','wt',encoding='utf-8') as wf:
             c=csv.writer(wf)
             for each in solve(rf.read()).sents:
                 c.writerow([str(each)])
 cdef void parse_all_word(str path):
     cdef FILE* rf=fopen(str_to_char_p(path),'rb')
-    cdef FILE* wf=fopen(str_to_char_p(path+'.aw'),'wb')
+    cdef FILE* wf=fopen(str_to_char_p(os.path.split(path)[1]+'.aw'),'wb')
     cdef char c
     cdef bytes b1='a'.encode()
     cdef char a=<char>int.from_bytes(b1,'big')
