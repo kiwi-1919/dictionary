@@ -5,6 +5,7 @@ import os
 import tqdm
 from libc.stdio cimport *
 import csv
+import re
 cdef str char_p_to_str(char* c):
     cdef bytes b=<bytes>c
     cdef str res=b.decode()
@@ -15,13 +16,11 @@ cdef char* str_to_char_p(str s):
     cdef char* c=<char*>b
     #end-cdef
     return c
-cdef list find_txt(str dir):
+cdef list find_txt(str txt_dir):
     cdef list l=list()
     #end-cdef
-    for each in os.listdir(dir):
-        if os.path.splitext(each)[1].lower!='.txt' or (not os.path.isfile(os.path.join(dir,each))):
-            continue
-        l.append(os.path.join(dir,each))
+    for each in os.listdir(txt_dir):
+        l.append(os.path.join(txt_dir,each))
     return l
 cdef void parse_sents(str path):
     solve=spacy.load('en_core_web_lg')
@@ -61,7 +60,7 @@ cdef list parse(str string):
     solve.max_length=1000000
     doc=solve(string)
     return [each.lemma_ for each in doc]
-def setup(dir):
-    for each in tqdm.tqdm(find_txt(dir)):
+def setup():
+    for each in tqdm.tqdm(find_txt('.\\txt')):
         parse_sents(each)
         parse_all_word(each)
