@@ -1297,13 +1297,13 @@ static const char __pyx_k_lemma[] = "lemma_";
 static const char __pyx_k_sents[] = "sents";
 static const char __pyx_k_setup[] = "setup";
 static const char __pyx_k_spacy[] = "spacy";
+static const char __pyx_k_split[] = "split";
 static const char __pyx_k_utf_8[] = "utf-8";
 static const char __pyx_k_import[] = "__import__";
 static const char __pyx_k_writer[] = "writer";
 static const char __pyx_k_listdir[] = "listdir";
 static const char __pyx_k_deal_pyx[] = "deal.pyx";
 static const char __pyx_k_encoding[] = "encoding";
-static const char __pyx_k_splitext[] = "splitext";
 static const char __pyx_k_writerow[] = "writerow";
 static const char __pyx_k_from_bytes[] = "from_bytes";
 static const char __pyx_k_max_length[] = "max_length";
@@ -1342,7 +1342,7 @@ static PyObject *__pyx_n_u_rt;
 static PyObject *__pyx_n_s_sents;
 static PyObject *__pyx_n_s_setup;
 static PyObject *__pyx_n_s_spacy;
-static PyObject *__pyx_n_s_splitext;
+static PyObject *__pyx_n_s_split;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_n_s_tqdm;
 static PyObject *__pyx_kp_u_txt;
@@ -1814,7 +1814,7 @@ static void __pyx_f_4deal_parse_sents(PyObject *__pyx_v_path) {
  *     solve=spacy.load('en_core_web_lg')
  *     solve.max_length=2000000             # <<<<<<<<<<<<<<
  *     with open(path,'rt',encoding='utf-8') as rf:
- *         with open(os.path.splitext(path)[0]+'.csv','wt',encoding='utf-8') as wf:
+ *         with open(os.path.split(path)[1]+'.csv','wt',encoding='utf-8') as wf:
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_solve, __pyx_n_s_max_length, __pyx_int_2000000) < 0) __PYX_ERR(0, 26, __pyx_L1_error)
 
@@ -1822,7 +1822,7 @@ static void __pyx_f_4deal_parse_sents(PyObject *__pyx_v_path) {
  *     solve=spacy.load('en_core_web_lg')
  *     solve.max_length=2000000
  *     with open(path,'rt',encoding='utf-8') as rf:             # <<<<<<<<<<<<<<
- *         with open(os.path.splitext(path)[0]+'.csv','wt',encoding='utf-8') as wf:
+ *         with open(os.path.split(path)[1]+'.csv','wt',encoding='utf-8') as wf:
  *             c=csv.writer(wf)
  */
   /*with:*/ {
@@ -1878,7 +1878,7 @@ static void __pyx_f_4deal_parse_sents(PyObject *__pyx_v_path) {
           /* "deal.pyx":28
  *     solve.max_length=2000000
  *     with open(path,'rt',encoding='utf-8') as rf:
- *         with open(os.path.splitext(path)[0]+'.csv','wt',encoding='utf-8') as wf:             # <<<<<<<<<<<<<<
+ *         with open(os.path.split(path)[1]+'.csv','wt',encoding='utf-8') as wf:             # <<<<<<<<<<<<<<
  *             c=csv.writer(wf)
  *             for each in solve(rf.read()).sents:
  */
@@ -1888,7 +1888,7 @@ static void __pyx_f_4deal_parse_sents(PyObject *__pyx_v_path) {
             __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_path); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 28, __pyx_L7_error)
             __Pyx_GOTREF(__pyx_t_3);
             __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-            __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_splitext); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 28, __pyx_L7_error)
+            __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_split); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 28, __pyx_L7_error)
             __Pyx_GOTREF(__pyx_t_2);
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
             __pyx_t_3 = NULL;
@@ -1906,7 +1906,7 @@ static void __pyx_f_4deal_parse_sents(PyObject *__pyx_v_path) {
             if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 28, __pyx_L7_error)
             __Pyx_GOTREF(__pyx_t_1);
             __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-            __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 28, __pyx_L7_error)
+            __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 28, __pyx_L7_error)
             __Pyx_GOTREF(__pyx_t_2);
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
             __pyx_t_1 = PyNumber_Add(__pyx_t_2, __pyx_kp_u_csv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 28, __pyx_L7_error)
@@ -1963,7 +1963,7 @@ static void __pyx_f_4deal_parse_sents(PyObject *__pyx_v_path) {
 
                   /* "deal.pyx":29
  *     with open(path,'rt',encoding='utf-8') as rf:
- *         with open(os.path.splitext(path)[0]+'.csv','wt',encoding='utf-8') as wf:
+ *         with open(os.path.split(path)[1]+'.csv','wt',encoding='utf-8') as wf:
  *             c=csv.writer(wf)             # <<<<<<<<<<<<<<
  *             for each in solve(rf.read()).sents:
  *                 c.writerow([str(each)])
@@ -1992,7 +1992,7 @@ static void __pyx_f_4deal_parse_sents(PyObject *__pyx_v_path) {
                   __pyx_t_2 = 0;
 
                   /* "deal.pyx":30
- *         with open(os.path.splitext(path)[0]+'.csv','wt',encoding='utf-8') as wf:
+ *         with open(os.path.split(path)[1]+'.csv','wt',encoding='utf-8') as wf:
  *             c=csv.writer(wf)
  *             for each in solve(rf.read()).sents:             # <<<<<<<<<<<<<<
  *                 c.writerow([str(each)])
@@ -2113,7 +2113,7 @@ static void __pyx_f_4deal_parse_sents(PyObject *__pyx_v_path) {
                     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
                     /* "deal.pyx":30
- *         with open(os.path.splitext(path)[0]+'.csv','wt',encoding='utf-8') as wf:
+ *         with open(os.path.split(path)[1]+'.csv','wt',encoding='utf-8') as wf:
  *             c=csv.writer(wf)
  *             for each in solve(rf.read()).sents:             # <<<<<<<<<<<<<<
  *                 c.writerow([str(each)])
@@ -2125,7 +2125,7 @@ static void __pyx_f_4deal_parse_sents(PyObject *__pyx_v_path) {
                   /* "deal.pyx":28
  *     solve.max_length=2000000
  *     with open(path,'rt',encoding='utf-8') as rf:
- *         with open(os.path.splitext(path)[0]+'.csv','wt',encoding='utf-8') as wf:             # <<<<<<<<<<<<<<
+ *         with open(os.path.split(path)[1]+'.csv','wt',encoding='utf-8') as wf:             # <<<<<<<<<<<<<<
  *             c=csv.writer(wf)
  *             for each in solve(rf.read()).sents:
  */
@@ -2208,7 +2208,7 @@ static void __pyx_f_4deal_parse_sents(PyObject *__pyx_v_path) {
  *     solve=spacy.load('en_core_web_lg')
  *     solve.max_length=2000000
  *     with open(path,'rt',encoding='utf-8') as rf:             # <<<<<<<<<<<<<<
- *         with open(os.path.splitext(path)[0]+'.csv','wt',encoding='utf-8') as wf:
+ *         with open(os.path.split(path)[1]+'.csv','wt',encoding='utf-8') as wf:
  *             c=csv.writer(wf)
  */
         }
@@ -2317,7 +2317,7 @@ static void __pyx_f_4deal_parse_sents(PyObject *__pyx_v_path) {
  *                 c.writerow([str(each)])
  * cdef void parse_all_word(str path):             # <<<<<<<<<<<<<<
  *     cdef FILE* rf=fopen(str_to_char_p(path),'rb')
- *     cdef FILE* wf=fopen(str_to_char_p(path+'.aw'),'wb')
+ *     cdef FILE* wf=fopen(str_to_char_p(os.path.split(path)[1]+'.aw'),'wb')
  */
 
 static void __pyx_f_4deal_parse_all_word(PyObject *__pyx_v_path) {
@@ -2352,7 +2352,7 @@ static void __pyx_f_4deal_parse_all_word(PyObject *__pyx_v_path) {
  *                 c.writerow([str(each)])
  * cdef void parse_all_word(str path):
  *     cdef FILE* rf=fopen(str_to_char_p(path),'rb')             # <<<<<<<<<<<<<<
- *     cdef FILE* wf=fopen(str_to_char_p(path+'.aw'),'wb')
+ *     cdef FILE* wf=fopen(str_to_char_p(os.path.split(path)[1]+'.aw'),'wb')
  *     cdef char c
  */
   __pyx_v_rf = fopen(__pyx_f_4deal_str_to_char_p(__pyx_v_path), ((char const *)"rb"));
@@ -2360,17 +2360,45 @@ static void __pyx_f_4deal_parse_all_word(PyObject *__pyx_v_path) {
   /* "deal.pyx":34
  * cdef void parse_all_word(str path):
  *     cdef FILE* rf=fopen(str_to_char_p(path),'rb')
- *     cdef FILE* wf=fopen(str_to_char_p(path+'.aw'),'wb')             # <<<<<<<<<<<<<<
+ *     cdef FILE* wf=fopen(str_to_char_p(os.path.split(path)[1]+'.aw'),'wb')             # <<<<<<<<<<<<<<
  *     cdef char c
  *     cdef bytes b1='a'.encode()
  */
-  __pyx_t_1 = __Pyx_PyUnicode_ConcatSafe(__pyx_v_path, __pyx_kp_u_aw); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 34, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_os); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 34, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_path); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 34, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_split); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 34, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_3)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, __pyx_v_path) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_path);
+  __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 34, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 34, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = PyNumber_Add(__pyx_t_2, __pyx_kp_u_aw); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 34, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (!(likely(PyUnicode_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 34, __pyx_L1_error)
   __pyx_v_wf = fopen(__pyx_f_4deal_str_to_char_p(((PyObject*)__pyx_t_1)), ((char const *)"wb"));
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "deal.pyx":36
- *     cdef FILE* wf=fopen(str_to_char_p(path+'.aw'),'wb')
+ *     cdef FILE* wf=fopen(str_to_char_p(os.path.split(path)[1]+'.aw'),'wb')
  *     cdef char c
  *     cdef bytes b1='a'.encode()             # <<<<<<<<<<<<<<
  *     cdef char a=<char>int.from_bytes(b1,'big')
@@ -2846,7 +2874,7 @@ static void __pyx_f_4deal_parse_all_word(PyObject *__pyx_v_path) {
  *                 c.writerow([str(each)])
  * cdef void parse_all_word(str path):             # <<<<<<<<<<<<<<
  *     cdef FILE* rf=fopen(str_to_char_p(path),'rb')
- *     cdef FILE* wf=fopen(str_to_char_p(path+'.aw'),'wb')
+ *     cdef FILE* wf=fopen(str_to_char_p(os.path.split(path)[1]+'.aw'),'wb')
  */
 
   /* function exit code */
@@ -3289,7 +3317,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_sents, __pyx_k_sents, sizeof(__pyx_k_sents), 0, 0, 1, 1},
   {&__pyx_n_s_setup, __pyx_k_setup, sizeof(__pyx_k_setup), 0, 0, 1, 1},
   {&__pyx_n_s_spacy, __pyx_k_spacy, sizeof(__pyx_k_spacy), 0, 0, 1, 1},
-  {&__pyx_n_s_splitext, __pyx_k_splitext, sizeof(__pyx_k_splitext), 0, 0, 1, 1},
+  {&__pyx_n_s_split, __pyx_k_split, sizeof(__pyx_k_split), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
   {&__pyx_n_s_tqdm, __pyx_k_tqdm, sizeof(__pyx_k_tqdm), 0, 0, 1, 1},
   {&__pyx_kp_u_txt, __pyx_k_txt, sizeof(__pyx_k_txt), 0, 1, 0, 0},
@@ -3314,7 +3342,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   /* "deal.pyx":28
  *     solve.max_length=2000000
  *     with open(path,'rt',encoding='utf-8') as rf:
- *         with open(os.path.splitext(path)[0]+'.csv','wt',encoding='utf-8') as wf:             # <<<<<<<<<<<<<<
+ *         with open(os.path.split(path)[1]+'.csv','wt',encoding='utf-8') as wf:             # <<<<<<<<<<<<<<
  *             c=csv.writer(wf)
  *             for each in solve(rf.read()).sents:
  */
