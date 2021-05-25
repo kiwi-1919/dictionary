@@ -1238,6 +1238,7 @@ int __pyx_module_is_main_parse = 0;
 
 /* Implementation of 'parse' */
 static PyObject *__pyx_builtin_open;
+static PyObject *__pyx_builtin_sorted;
 static const char __pyx_k_[] = ";";
 static const char __pyx_k_s[] = "s";
 static const char __pyx_k_os[] = "os";
@@ -1250,6 +1251,7 @@ static const char __pyx_k_wt[] = "wt";
 static const char __pyx_k_csv[] = "csv";
 static const char __pyx_k_dir[] = "dir";
 static const char __pyx_k_doc[] = "doc";
+static const char __pyx_k_txt[] = ".txt";
 static const char __pyx_k_each[] = "each";
 static const char __pyx_k_exit[] = "__exit__";
 static const char __pyx_k_load[] = "load";
@@ -1265,14 +1267,17 @@ static const char __pyx_k_lemma[] = "lemma_";
 static const char __pyx_k_parse[] = "parse";
 static const char __pyx_k_spacy[] = "spacy";
 static const char __pyx_k_utf_8[] = "utf-8";
+static const char __pyx_k_write[] = "write";
 static const char __pyx_k_choose[] = "choose";
 static const char __pyx_k_import[] = "__import__";
 static const char __pyx_k_reader[] = "reader";
+static const char __pyx_k_sorted[] = "sorted";
 static const char __pyx_k_storey[] = "storey_";
 static const char __pyx_k_suffix[] = "suffix";
 static const char __pyx_k_writer[] = "writer";
 static const char __pyx_k_aw_name[] = "aw_name";
 static const char __pyx_k_listdir[] = "listdir";
+static const char __pyx_k_reverse[] = "reverse";
 static const char __pyx_k_csv_name[] = "csv_name";
 static const char __pyx_k_encoding[] = "encoding";
 static const char __pyx_k_writerow[] = "writerow";
@@ -1312,17 +1317,21 @@ static PyObject *__pyx_n_s_pyfind_by_suf;
 static PyObject *__pyx_n_s_rc;
 static PyObject *__pyx_n_s_read;
 static PyObject *__pyx_n_s_reader;
+static PyObject *__pyx_n_s_reverse;
 static PyObject *__pyx_n_s_rf;
 static PyObject *__pyx_n_u_rt;
 static PyObject *__pyx_n_s_s;
+static PyObject *__pyx_n_s_sorted;
 static PyObject *__pyx_n_s_spacy;
 static PyObject *__pyx_n_u_storey;
 static PyObject *__pyx_n_s_suffix;
 static PyObject *__pyx_n_s_test;
+static PyObject *__pyx_kp_u_txt;
 static PyObject *__pyx_kp_u_utf_8;
 static PyObject *__pyx_n_s_wc;
 static PyObject *__pyx_n_s_wf;
 static PyObject *__pyx_n_s_word;
+static PyObject *__pyx_n_s_write;
 static PyObject *__pyx_n_s_writer;
 static PyObject *__pyx_n_s_writerow;
 static PyObject *__pyx_n_u_wt;
@@ -2237,7 +2246,7 @@ static PyObject *__pyx_pf_5parse_parse_sents_to_words(CYTHON_UNUSED PyObject *__
  *         wf.close()
  * def choose(aw_name):             # <<<<<<<<<<<<<<
  *     with open(aw_name,'rt',encoding='utf-8') as rf:
- *         return sorted(list(set(parse_word(rf.read()))))
+ *         with open(aw_name+'.txt','wt',encoding='utf-8') as wf:
  */
 
 /* Python wrapper */
@@ -2256,6 +2265,8 @@ static PyObject *__pyx_pw_5parse_3choose(PyObject *__pyx_self, PyObject *__pyx_v
 
 static PyObject *__pyx_pf_5parse_2choose(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_aw_name) {
   PyObject *__pyx_v_rf = NULL;
+  PyObject *__pyx_v_wf = NULL;
+  PyObject *__pyx_v_each = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2266,10 +2277,16 @@ static PyObject *__pyx_pf_5parse_2choose(CYTHON_UNUSED PyObject *__pyx_self, PyO
   PyObject *__pyx_t_6 = NULL;
   PyObject *__pyx_t_7 = NULL;
   PyObject *__pyx_t_8 = NULL;
-  int __pyx_t_9;
+  PyObject *__pyx_t_9 = NULL;
   PyObject *__pyx_t_10 = NULL;
-  int __pyx_t_11;
-  int __pyx_t_12;
+  PyObject *__pyx_t_11 = NULL;
+  PyObject *__pyx_t_12 = NULL;
+  Py_ssize_t __pyx_t_13;
+  PyObject *(*__pyx_t_14)(PyObject *);
+  PyObject *__pyx_t_15 = NULL;
+  PyObject *__pyx_t_16 = NULL;
+  int __pyx_t_17;
+  int __pyx_t_18;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -2279,8 +2296,8 @@ static PyObject *__pyx_pf_5parse_2choose(CYTHON_UNUSED PyObject *__pyx_self, PyO
  *         wf.close()
  * def choose(aw_name):
  *     with open(aw_name,'rt',encoding='utf-8') as rf:             # <<<<<<<<<<<<<<
- *         return sorted(list(set(parse_word(rf.read()))))
- * def pyfind_by_suf(dir,suffix):
+ *         with open(aw_name+'.txt','wt',encoding='utf-8') as wf:
+ *             for each in sorted(list(set(parse_word(rf.read()))),reverse=True):
  */
   /*with:*/ {
     __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 36, __pyx_L1_error)
@@ -2335,88 +2352,317 @@ static PyObject *__pyx_pf_5parse_2choose(CYTHON_UNUSED PyObject *__pyx_self, PyO
           /* "parse.pyx":37
  * def choose(aw_name):
  *     with open(aw_name,'rt',encoding='utf-8') as rf:
- *         return sorted(list(set(parse_word(rf.read()))))             # <<<<<<<<<<<<<<
+ *         with open(aw_name+'.txt','wt',encoding='utf-8') as wf:             # <<<<<<<<<<<<<<
+ *             for each in sorted(list(set(parse_word(rf.read()))),reverse=True):
+ *                 wf.write(each+';')
+ */
+          /*with:*/ {
+            __pyx_t_1 = PyNumber_Add(__pyx_v_aw_name, __pyx_kp_u_txt); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 37, __pyx_L7_error)
+            __Pyx_GOTREF(__pyx_t_1);
+            __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 37, __pyx_L7_error)
+            __Pyx_GOTREF(__pyx_t_3);
+            __Pyx_GIVEREF(__pyx_t_1);
+            PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1);
+            __Pyx_INCREF(__pyx_n_u_wt);
+            __Pyx_GIVEREF(__pyx_n_u_wt);
+            PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_n_u_wt);
+            __pyx_t_1 = 0;
+            __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 37, __pyx_L7_error)
+            __Pyx_GOTREF(__pyx_t_1);
+            if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_encoding, __pyx_kp_u_utf_8) < 0) __PYX_ERR(0, 37, __pyx_L7_error)
+            __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_open, __pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 37, __pyx_L7_error)
+            __Pyx_GOTREF(__pyx_t_2);
+            __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+            __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+            __pyx_t_9 = __Pyx_PyObject_LookupSpecial(__pyx_t_2, __pyx_n_s_exit); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 37, __pyx_L7_error)
+            __Pyx_GOTREF(__pyx_t_9);
+            __pyx_t_3 = __Pyx_PyObject_LookupSpecial(__pyx_t_2, __pyx_n_s_enter); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 37, __pyx_L13_error)
+            __Pyx_GOTREF(__pyx_t_3);
+            __pyx_t_5 = NULL;
+            if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
+              __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_3);
+              if (likely(__pyx_t_5)) {
+                PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+                __Pyx_INCREF(__pyx_t_5);
+                __Pyx_INCREF(function);
+                __Pyx_DECREF_SET(__pyx_t_3, function);
+              }
+            }
+            __pyx_t_1 = (__pyx_t_5) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_5) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
+            __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+            if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 37, __pyx_L13_error)
+            __Pyx_GOTREF(__pyx_t_1);
+            __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+            __pyx_t_3 = __pyx_t_1;
+            __pyx_t_1 = 0;
+            __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+            /*try:*/ {
+              {
+                __Pyx_PyThreadState_declare
+                __Pyx_PyThreadState_assign
+                __Pyx_ExceptionSave(&__pyx_t_10, &__pyx_t_11, &__pyx_t_12);
+                __Pyx_XGOTREF(__pyx_t_10);
+                __Pyx_XGOTREF(__pyx_t_11);
+                __Pyx_XGOTREF(__pyx_t_12);
+                /*try:*/ {
+                  __pyx_v_wf = __pyx_t_3;
+                  __pyx_t_3 = 0;
+
+                  /* "parse.pyx":38
+ *     with open(aw_name,'rt',encoding='utf-8') as rf:
+ *         with open(aw_name+'.txt','wt',encoding='utf-8') as wf:
+ *             for each in sorted(list(set(parse_word(rf.read()))),reverse=True):             # <<<<<<<<<<<<<<
+ *                 wf.write(each+';')
+ * def pyfind_by_suf(dir,suffix):
+ */
+                  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_rf, __pyx_n_s_read); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 38, __pyx_L17_error)
+                  __Pyx_GOTREF(__pyx_t_2);
+                  __pyx_t_1 = NULL;
+                  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+                    __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_2);
+                    if (likely(__pyx_t_1)) {
+                      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+                      __Pyx_INCREF(__pyx_t_1);
+                      __Pyx_INCREF(function);
+                      __Pyx_DECREF_SET(__pyx_t_2, function);
+                    }
+                  }
+                  __pyx_t_3 = (__pyx_t_1) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_1) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
+                  __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+                  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 38, __pyx_L17_error)
+                  __Pyx_GOTREF(__pyx_t_3);
+                  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+                  if (!(likely(PyUnicode_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_t_3)->tp_name), 0))) __PYX_ERR(0, 38, __pyx_L17_error)
+                  __pyx_t_2 = __pyx_f_5parse_parse_word(((PyObject*)__pyx_t_3)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 38, __pyx_L17_error)
+                  __Pyx_GOTREF(__pyx_t_2);
+                  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+                  __pyx_t_3 = PySet_New(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 38, __pyx_L17_error)
+                  __Pyx_GOTREF(__pyx_t_3);
+                  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+                  __pyx_t_2 = PySequence_List(__pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 38, __pyx_L17_error)
+                  __Pyx_GOTREF(__pyx_t_2);
+                  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+                  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 38, __pyx_L17_error)
+                  __Pyx_GOTREF(__pyx_t_3);
+                  __Pyx_GIVEREF(__pyx_t_2);
+                  PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2);
+                  __pyx_t_2 = 0;
+                  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 38, __pyx_L17_error)
+                  __Pyx_GOTREF(__pyx_t_2);
+                  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_reverse, Py_True) < 0) __PYX_ERR(0, 38, __pyx_L17_error)
+                  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_sorted, __pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 38, __pyx_L17_error)
+                  __Pyx_GOTREF(__pyx_t_1);
+                  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+                  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+                  if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
+                    __pyx_t_2 = __pyx_t_1; __Pyx_INCREF(__pyx_t_2); __pyx_t_13 = 0;
+                    __pyx_t_14 = NULL;
+                  } else {
+                    __pyx_t_13 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 38, __pyx_L17_error)
+                    __Pyx_GOTREF(__pyx_t_2);
+                    __pyx_t_14 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 38, __pyx_L17_error)
+                  }
+                  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+                  for (;;) {
+                    if (likely(!__pyx_t_14)) {
+                      if (likely(PyList_CheckExact(__pyx_t_2))) {
+                        if (__pyx_t_13 >= PyList_GET_SIZE(__pyx_t_2)) break;
+                        #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+                        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_13); __Pyx_INCREF(__pyx_t_1); __pyx_t_13++; if (unlikely(0 < 0)) __PYX_ERR(0, 38, __pyx_L17_error)
+                        #else
+                        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_13); __pyx_t_13++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 38, __pyx_L17_error)
+                        __Pyx_GOTREF(__pyx_t_1);
+                        #endif
+                      } else {
+                        if (__pyx_t_13 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
+                        #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+                        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_13); __Pyx_INCREF(__pyx_t_1); __pyx_t_13++; if (unlikely(0 < 0)) __PYX_ERR(0, 38, __pyx_L17_error)
+                        #else
+                        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_13); __pyx_t_13++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 38, __pyx_L17_error)
+                        __Pyx_GOTREF(__pyx_t_1);
+                        #endif
+                      }
+                    } else {
+                      __pyx_t_1 = __pyx_t_14(__pyx_t_2);
+                      if (unlikely(!__pyx_t_1)) {
+                        PyObject* exc_type = PyErr_Occurred();
+                        if (exc_type) {
+                          if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
+                          else __PYX_ERR(0, 38, __pyx_L17_error)
+                        }
+                        break;
+                      }
+                      __Pyx_GOTREF(__pyx_t_1);
+                    }
+                    __Pyx_XDECREF_SET(__pyx_v_each, __pyx_t_1);
+                    __pyx_t_1 = 0;
+
+                    /* "parse.pyx":39
+ *         with open(aw_name+'.txt','wt',encoding='utf-8') as wf:
+ *             for each in sorted(list(set(parse_word(rf.read()))),reverse=True):
+ *                 wf.write(each+';')             # <<<<<<<<<<<<<<
  * def pyfind_by_suf(dir,suffix):
  *     return find_by_suf(dir,suffix)
  */
-          __Pyx_XDECREF(__pyx_r);
-          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_rf, __pyx_n_s_read); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 37, __pyx_L7_error)
-          __Pyx_GOTREF(__pyx_t_2);
-          __pyx_t_5 = NULL;
-          if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
-            __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_2);
-            if (likely(__pyx_t_5)) {
-              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-              __Pyx_INCREF(__pyx_t_5);
-              __Pyx_INCREF(function);
-              __Pyx_DECREF_SET(__pyx_t_2, function);
+                    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_wf, __pyx_n_s_write); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 39, __pyx_L17_error)
+                    __Pyx_GOTREF(__pyx_t_3);
+                    __pyx_t_5 = PyNumber_Add(__pyx_v_each, __pyx_kp_u_); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 39, __pyx_L17_error)
+                    __Pyx_GOTREF(__pyx_t_5);
+                    __pyx_t_15 = NULL;
+                    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
+                      __pyx_t_15 = PyMethod_GET_SELF(__pyx_t_3);
+                      if (likely(__pyx_t_15)) {
+                        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+                        __Pyx_INCREF(__pyx_t_15);
+                        __Pyx_INCREF(function);
+                        __Pyx_DECREF_SET(__pyx_t_3, function);
+                      }
+                    }
+                    __pyx_t_1 = (__pyx_t_15) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_15, __pyx_t_5) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_5);
+                    __Pyx_XDECREF(__pyx_t_15); __pyx_t_15 = 0;
+                    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+                    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 39, __pyx_L17_error)
+                    __Pyx_GOTREF(__pyx_t_1);
+                    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+                    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+                    /* "parse.pyx":38
+ *     with open(aw_name,'rt',encoding='utf-8') as rf:
+ *         with open(aw_name+'.txt','wt',encoding='utf-8') as wf:
+ *             for each in sorted(list(set(parse_word(rf.read()))),reverse=True):             # <<<<<<<<<<<<<<
+ *                 wf.write(each+';')
+ * def pyfind_by_suf(dir,suffix):
+ */
+                  }
+                  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+                  /* "parse.pyx":37
+ * def choose(aw_name):
+ *     with open(aw_name,'rt',encoding='utf-8') as rf:
+ *         with open(aw_name+'.txt','wt',encoding='utf-8') as wf:             # <<<<<<<<<<<<<<
+ *             for each in sorted(list(set(parse_word(rf.read()))),reverse=True):
+ *                 wf.write(each+';')
+ */
+                }
+                __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
+                __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
+                __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
+                goto __pyx_L22_try_end;
+                __pyx_L17_error:;
+                __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+                __Pyx_XDECREF(__pyx_t_15); __pyx_t_15 = 0;
+                __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+                __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+                __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+                /*except:*/ {
+                  __Pyx_AddTraceback("parse.choose", __pyx_clineno, __pyx_lineno, __pyx_filename);
+                  if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_1, &__pyx_t_3) < 0) __PYX_ERR(0, 37, __pyx_L19_except_error)
+                  __Pyx_GOTREF(__pyx_t_2);
+                  __Pyx_GOTREF(__pyx_t_1);
+                  __Pyx_GOTREF(__pyx_t_3);
+                  __pyx_t_5 = PyTuple_Pack(3, __pyx_t_2, __pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 37, __pyx_L19_except_error)
+                  __Pyx_GOTREF(__pyx_t_5);
+                  __pyx_t_16 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_5, NULL);
+                  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+                  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+                  if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 37, __pyx_L19_except_error)
+                  __Pyx_GOTREF(__pyx_t_16);
+                  __pyx_t_17 = __Pyx_PyObject_IsTrue(__pyx_t_16);
+                  __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+                  if (__pyx_t_17 < 0) __PYX_ERR(0, 37, __pyx_L19_except_error)
+                  __pyx_t_18 = ((!(__pyx_t_17 != 0)) != 0);
+                  if (__pyx_t_18) {
+                    __Pyx_GIVEREF(__pyx_t_2);
+                    __Pyx_GIVEREF(__pyx_t_1);
+                    __Pyx_XGIVEREF(__pyx_t_3);
+                    __Pyx_ErrRestoreWithState(__pyx_t_2, __pyx_t_1, __pyx_t_3);
+                    __pyx_t_2 = 0; __pyx_t_1 = 0; __pyx_t_3 = 0; 
+                    __PYX_ERR(0, 37, __pyx_L19_except_error)
+                  }
+                  __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+                  __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+                  __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+                  goto __pyx_L18_exception_handled;
+                }
+                __pyx_L19_except_error:;
+                __Pyx_XGIVEREF(__pyx_t_10);
+                __Pyx_XGIVEREF(__pyx_t_11);
+                __Pyx_XGIVEREF(__pyx_t_12);
+                __Pyx_ExceptionReset(__pyx_t_10, __pyx_t_11, __pyx_t_12);
+                goto __pyx_L7_error;
+                __pyx_L18_exception_handled:;
+                __Pyx_XGIVEREF(__pyx_t_10);
+                __Pyx_XGIVEREF(__pyx_t_11);
+                __Pyx_XGIVEREF(__pyx_t_12);
+                __Pyx_ExceptionReset(__pyx_t_10, __pyx_t_11, __pyx_t_12);
+                __pyx_L22_try_end:;
+              }
             }
+            /*finally:*/ {
+              /*normal exit:*/{
+                if (__pyx_t_9) {
+                  __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_tuple__3, NULL);
+                  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+                  if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 37, __pyx_L7_error)
+                  __Pyx_GOTREF(__pyx_t_12);
+                  __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+                }
+                goto __pyx_L16;
+              }
+              __pyx_L16:;
+            }
+            goto __pyx_L28;
+            __pyx_L13_error:;
+            __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+            goto __pyx_L7_error;
+            __pyx_L28:;
           }
-          __pyx_t_3 = (__pyx_t_5) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_5) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
-          __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-          if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 37, __pyx_L7_error)
-          __Pyx_GOTREF(__pyx_t_3);
-          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-          if (!(likely(PyUnicode_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_t_3)->tp_name), 0))) __PYX_ERR(0, 37, __pyx_L7_error)
-          __pyx_t_2 = __pyx_f_5parse_parse_word(((PyObject*)__pyx_t_3)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 37, __pyx_L7_error)
-          __Pyx_GOTREF(__pyx_t_2);
-          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-          __pyx_t_3 = PySet_New(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 37, __pyx_L7_error)
-          __Pyx_GOTREF(__pyx_t_3);
-          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-          __pyx_t_2 = PySequence_List(__pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 37, __pyx_L7_error)
-          __Pyx_GOTREF(__pyx_t_2);
-          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-          __pyx_t_3 = PySequence_List(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 37, __pyx_L7_error)
-          __Pyx_GOTREF(__pyx_t_3);
-          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-          __pyx_t_1 = ((PyObject*)__pyx_t_3);
-          __pyx_t_3 = 0;
-          __pyx_t_9 = PyList_Sort(__pyx_t_1); if (unlikely(__pyx_t_9 == ((int)-1))) __PYX_ERR(0, 37, __pyx_L7_error)
-          __pyx_r = __pyx_t_1;
-          __pyx_t_1 = 0;
-          goto __pyx_L11_try_return;
 
           /* "parse.pyx":36
  *         wf.close()
  * def choose(aw_name):
  *     with open(aw_name,'rt',encoding='utf-8') as rf:             # <<<<<<<<<<<<<<
- *         return sorted(list(set(parse_word(rf.read()))))
- * def pyfind_by_suf(dir,suffix):
+ *         with open(aw_name+'.txt','wt',encoding='utf-8') as wf:
+ *             for each in sorted(list(set(parse_word(rf.read()))),reverse=True):
  */
         }
+        __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+        __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+        __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+        goto __pyx_L12_try_end;
         __pyx_L7_error:;
         __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+        __Pyx_XDECREF(__pyx_t_15); __pyx_t_15 = 0;
         __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
         /*except:*/ {
           __Pyx_AddTraceback("parse.choose", __pyx_clineno, __pyx_lineno, __pyx_filename);
-          if (__Pyx_GetException(&__pyx_t_1, &__pyx_t_3, &__pyx_t_2) < 0) __PYX_ERR(0, 36, __pyx_L9_except_error)
-          __Pyx_GOTREF(__pyx_t_1);
+          if (__Pyx_GetException(&__pyx_t_3, &__pyx_t_1, &__pyx_t_2) < 0) __PYX_ERR(0, 36, __pyx_L9_except_error)
           __Pyx_GOTREF(__pyx_t_3);
+          __Pyx_GOTREF(__pyx_t_1);
           __Pyx_GOTREF(__pyx_t_2);
-          __pyx_t_5 = PyTuple_Pack(3, __pyx_t_1, __pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 36, __pyx_L9_except_error)
+          __pyx_t_5 = PyTuple_Pack(3, __pyx_t_3, __pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 36, __pyx_L9_except_error)
           __Pyx_GOTREF(__pyx_t_5);
-          __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, NULL);
+          __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, NULL);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-          if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 36, __pyx_L9_except_error)
-          __Pyx_GOTREF(__pyx_t_10);
-          __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_10);
-          __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-          if (__pyx_t_11 < 0) __PYX_ERR(0, 36, __pyx_L9_except_error)
-          __pyx_t_12 = ((!(__pyx_t_11 != 0)) != 0);
-          if (__pyx_t_12) {
-            __Pyx_GIVEREF(__pyx_t_1);
+          if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 36, __pyx_L9_except_error)
+          __Pyx_GOTREF(__pyx_t_9);
+          __pyx_t_18 = __Pyx_PyObject_IsTrue(__pyx_t_9);
+          __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+          if (__pyx_t_18 < 0) __PYX_ERR(0, 36, __pyx_L9_except_error)
+          __pyx_t_17 = ((!(__pyx_t_18 != 0)) != 0);
+          if (__pyx_t_17) {
             __Pyx_GIVEREF(__pyx_t_3);
+            __Pyx_GIVEREF(__pyx_t_1);
             __Pyx_XGIVEREF(__pyx_t_2);
-            __Pyx_ErrRestoreWithState(__pyx_t_1, __pyx_t_3, __pyx_t_2);
-            __pyx_t_1 = 0; __pyx_t_3 = 0; __pyx_t_2 = 0; 
+            __Pyx_ErrRestoreWithState(__pyx_t_3, __pyx_t_1, __pyx_t_2);
+            __pyx_t_3 = 0; __pyx_t_1 = 0; __pyx_t_2 = 0; 
             __PYX_ERR(0, 36, __pyx_L9_except_error)
           }
-          __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
           __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+          __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
           __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
           goto __pyx_L8_exception_handled;
         }
@@ -2426,17 +2672,12 @@ static PyObject *__pyx_pf_5parse_2choose(CYTHON_UNUSED PyObject *__pyx_self, PyO
         __Pyx_XGIVEREF(__pyx_t_8);
         __Pyx_ExceptionReset(__pyx_t_6, __pyx_t_7, __pyx_t_8);
         goto __pyx_L1_error;
-        __pyx_L11_try_return:;
-        __Pyx_XGIVEREF(__pyx_t_6);
-        __Pyx_XGIVEREF(__pyx_t_7);
-        __Pyx_XGIVEREF(__pyx_t_8);
-        __Pyx_ExceptionReset(__pyx_t_6, __pyx_t_7, __pyx_t_8);
-        goto __pyx_L4_return;
         __pyx_L8_exception_handled:;
         __Pyx_XGIVEREF(__pyx_t_6);
         __Pyx_XGIVEREF(__pyx_t_7);
         __Pyx_XGIVEREF(__pyx_t_8);
         __Pyx_ExceptionReset(__pyx_t_6, __pyx_t_7, __pyx_t_8);
+        __pyx_L12_try_end:;
       }
     }
     /*finally:*/ {
@@ -2450,27 +2691,13 @@ static PyObject *__pyx_pf_5parse_2choose(CYTHON_UNUSED PyObject *__pyx_self, PyO
         }
         goto __pyx_L6;
       }
-      __pyx_L4_return: {
-        __pyx_t_8 = __pyx_r;
-        __pyx_r = 0;
-        if (__pyx_t_4) {
-          __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_tuple__3, NULL);
-          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 36, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_7);
-          __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        }
-        __pyx_r = __pyx_t_8;
-        __pyx_t_8 = 0;
-        goto __pyx_L0;
-      }
       __pyx_L6:;
     }
-    goto __pyx_L16;
+    goto __pyx_L32;
     __pyx_L3_error:;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     goto __pyx_L1_error;
-    __pyx_L16:;
+    __pyx_L32:;
   }
 
   /* "parse.pyx":35
@@ -2478,7 +2705,7 @@ static PyObject *__pyx_pf_5parse_2choose(CYTHON_UNUSED PyObject *__pyx_self, PyO
  *         wf.close()
  * def choose(aw_name):             # <<<<<<<<<<<<<<
  *     with open(aw_name,'rt',encoding='utf-8') as rf:
- *         return sorted(list(set(parse_word(rf.read()))))
+ *         with open(aw_name+'.txt','wt',encoding='utf-8') as wf:
  */
 
   /* function exit code */
@@ -2489,18 +2716,21 @@ static PyObject *__pyx_pf_5parse_2choose(CYTHON_UNUSED PyObject *__pyx_self, PyO
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_15);
   __Pyx_AddTraceback("parse.choose", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_rf);
+  __Pyx_XDECREF(__pyx_v_wf);
+  __Pyx_XDECREF(__pyx_v_each);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "parse.pyx":38
- *     with open(aw_name,'rt',encoding='utf-8') as rf:
- *         return sorted(list(set(parse_word(rf.read()))))
+/* "parse.pyx":40
+ *             for each in sorted(list(set(parse_word(rf.read()))),reverse=True):
+ *                 wf.write(each+';')
  * def pyfind_by_suf(dir,suffix):             # <<<<<<<<<<<<<<
  *     return find_by_suf(dir,suffix)
  */
@@ -2540,11 +2770,11 @@ static PyObject *__pyx_pw_5parse_5pyfind_by_suf(PyObject *__pyx_self, PyObject *
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_suffix)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("pyfind_by_suf", 1, 2, 2, 1); __PYX_ERR(0, 38, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("pyfind_by_suf", 1, 2, 2, 1); __PYX_ERR(0, 40, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "pyfind_by_suf") < 0)) __PYX_ERR(0, 38, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "pyfind_by_suf") < 0)) __PYX_ERR(0, 40, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -2557,7 +2787,7 @@ static PyObject *__pyx_pw_5parse_5pyfind_by_suf(PyObject *__pyx_self, PyObject *
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("pyfind_by_suf", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 38, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("pyfind_by_suf", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 40, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("parse.pyfind_by_suf", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -2579,23 +2809,23 @@ static PyObject *__pyx_pf_5parse_4pyfind_by_suf(CYTHON_UNUSED PyObject *__pyx_se
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("pyfind_by_suf", 0);
 
-  /* "parse.pyx":39
- *         return sorted(list(set(parse_word(rf.read()))))
+  /* "parse.pyx":41
+ *                 wf.write(each+';')
  * def pyfind_by_suf(dir,suffix):
  *     return find_by_suf(dir,suffix)             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  if (!(likely(PyUnicode_CheckExact(__pyx_v_dir))||((__pyx_v_dir) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_v_dir)->tp_name), 0))) __PYX_ERR(0, 39, __pyx_L1_error)
-  if (!(likely(PyUnicode_CheckExact(__pyx_v_suffix))||((__pyx_v_suffix) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_v_suffix)->tp_name), 0))) __PYX_ERR(0, 39, __pyx_L1_error)
-  __pyx_t_1 = __pyx_f_5parse_find_by_suf(((PyObject*)__pyx_v_dir), ((PyObject*)__pyx_v_suffix)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 39, __pyx_L1_error)
+  if (!(likely(PyUnicode_CheckExact(__pyx_v_dir))||((__pyx_v_dir) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_v_dir)->tp_name), 0))) __PYX_ERR(0, 41, __pyx_L1_error)
+  if (!(likely(PyUnicode_CheckExact(__pyx_v_suffix))||((__pyx_v_suffix) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_v_suffix)->tp_name), 0))) __PYX_ERR(0, 41, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_5parse_find_by_suf(((PyObject*)__pyx_v_dir), ((PyObject*)__pyx_v_suffix)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 41, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "parse.pyx":38
- *     with open(aw_name,'rt',encoding='utf-8') as rf:
- *         return sorted(list(set(parse_word(rf.read()))))
+  /* "parse.pyx":40
+ *             for each in sorted(list(set(parse_word(rf.read()))),reverse=True):
+ *                 wf.write(each+';')
  * def pyfind_by_suf(dir,suffix):             # <<<<<<<<<<<<<<
  *     return find_by_suf(dir,suffix)
  */
@@ -2687,17 +2917,21 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_rc, __pyx_k_rc, sizeof(__pyx_k_rc), 0, 0, 1, 1},
   {&__pyx_n_s_read, __pyx_k_read, sizeof(__pyx_k_read), 0, 0, 1, 1},
   {&__pyx_n_s_reader, __pyx_k_reader, sizeof(__pyx_k_reader), 0, 0, 1, 1},
+  {&__pyx_n_s_reverse, __pyx_k_reverse, sizeof(__pyx_k_reverse), 0, 0, 1, 1},
   {&__pyx_n_s_rf, __pyx_k_rf, sizeof(__pyx_k_rf), 0, 0, 1, 1},
   {&__pyx_n_u_rt, __pyx_k_rt, sizeof(__pyx_k_rt), 0, 1, 0, 1},
   {&__pyx_n_s_s, __pyx_k_s, sizeof(__pyx_k_s), 0, 0, 1, 1},
+  {&__pyx_n_s_sorted, __pyx_k_sorted, sizeof(__pyx_k_sorted), 0, 0, 1, 1},
   {&__pyx_n_s_spacy, __pyx_k_spacy, sizeof(__pyx_k_spacy), 0, 0, 1, 1},
   {&__pyx_n_u_storey, __pyx_k_storey, sizeof(__pyx_k_storey), 0, 1, 0, 1},
   {&__pyx_n_s_suffix, __pyx_k_suffix, sizeof(__pyx_k_suffix), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
+  {&__pyx_kp_u_txt, __pyx_k_txt, sizeof(__pyx_k_txt), 0, 1, 0, 0},
   {&__pyx_kp_u_utf_8, __pyx_k_utf_8, sizeof(__pyx_k_utf_8), 0, 1, 0, 0},
   {&__pyx_n_s_wc, __pyx_k_wc, sizeof(__pyx_k_wc), 0, 0, 1, 1},
   {&__pyx_n_s_wf, __pyx_k_wf, sizeof(__pyx_k_wf), 0, 0, 1, 1},
   {&__pyx_n_s_word, __pyx_k_word, sizeof(__pyx_k_word), 0, 0, 1, 1},
+  {&__pyx_n_s_write, __pyx_k_write, sizeof(__pyx_k_write), 0, 0, 1, 1},
   {&__pyx_n_s_writer, __pyx_k_writer, sizeof(__pyx_k_writer), 0, 0, 1, 1},
   {&__pyx_n_s_writerow, __pyx_k_writerow, sizeof(__pyx_k_writerow), 0, 0, 1, 1},
   {&__pyx_n_u_wt, __pyx_k_wt, sizeof(__pyx_k_wt), 0, 1, 0, 1},
@@ -2705,6 +2939,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_open = __Pyx_GetBuiltinName(__pyx_n_s_open); if (!__pyx_builtin_open) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_builtin_sorted = __Pyx_GetBuiltinName(__pyx_n_s_sorted); if (!__pyx_builtin_sorted) __PYX_ERR(0, 38, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -2725,14 +2960,14 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "parse.pyx":36
- *         wf.close()
+  /* "parse.pyx":37
  * def choose(aw_name):
- *     with open(aw_name,'rt',encoding='utf-8') as rf:             # <<<<<<<<<<<<<<
- *         return sorted(list(set(parse_word(rf.read()))))
- * def pyfind_by_suf(dir,suffix):
+ *     with open(aw_name,'rt',encoding='utf-8') as rf:
+ *         with open(aw_name+'.txt','wt',encoding='utf-8') as wf:             # <<<<<<<<<<<<<<
+ *             for each in sorted(list(set(parse_word(rf.read()))),reverse=True):
+ *                 wf.write(each+';')
  */
-  __pyx_tuple__3 = PyTuple_Pack(3, Py_None, Py_None, Py_None); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 36, __pyx_L1_error)
+  __pyx_tuple__3 = PyTuple_Pack(3, Py_None, Py_None, Py_None); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 37, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
@@ -2753,23 +2988,23 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *         wf.close()
  * def choose(aw_name):             # <<<<<<<<<<<<<<
  *     with open(aw_name,'rt',encoding='utf-8') as rf:
- *         return sorted(list(set(parse_word(rf.read()))))
+ *         with open(aw_name+'.txt','wt',encoding='utf-8') as wf:
  */
-  __pyx_tuple__6 = PyTuple_Pack(2, __pyx_n_s_aw_name, __pyx_n_s_rf); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 35, __pyx_L1_error)
+  __pyx_tuple__6 = PyTuple_Pack(4, __pyx_n_s_aw_name, __pyx_n_s_rf, __pyx_n_s_wf, __pyx_n_s_each); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 35, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
-  __pyx_codeobj__7 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__6, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_parse_pyx, __pyx_n_s_choose, 35, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__7)) __PYX_ERR(0, 35, __pyx_L1_error)
+  __pyx_codeobj__7 = (PyObject*)__Pyx_PyCode_New(1, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__6, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_parse_pyx, __pyx_n_s_choose, 35, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__7)) __PYX_ERR(0, 35, __pyx_L1_error)
 
-  /* "parse.pyx":38
- *     with open(aw_name,'rt',encoding='utf-8') as rf:
- *         return sorted(list(set(parse_word(rf.read()))))
+  /* "parse.pyx":40
+ *             for each in sorted(list(set(parse_word(rf.read()))),reverse=True):
+ *                 wf.write(each+';')
  * def pyfind_by_suf(dir,suffix):             # <<<<<<<<<<<<<<
  *     return find_by_suf(dir,suffix)
  */
-  __pyx_tuple__8 = PyTuple_Pack(2, __pyx_n_s_dir, __pyx_n_s_suffix); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(0, 38, __pyx_L1_error)
+  __pyx_tuple__8 = PyTuple_Pack(2, __pyx_n_s_dir, __pyx_n_s_suffix); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(0, 40, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__8);
   __Pyx_GIVEREF(__pyx_tuple__8);
-  __pyx_codeobj__9 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_parse_pyx, __pyx_n_s_pyfind_by_suf, 38, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__9)) __PYX_ERR(0, 38, __pyx_L1_error)
+  __pyx_codeobj__9 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_parse_pyx, __pyx_n_s_pyfind_by_suf, 40, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__9)) __PYX_ERR(0, 40, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -3103,22 +3338,22 @@ if (!__Pyx_RefNanny) {
  *         wf.close()
  * def choose(aw_name):             # <<<<<<<<<<<<<<
  *     with open(aw_name,'rt',encoding='utf-8') as rf:
- *         return sorted(list(set(parse_word(rf.read()))))
+ *         with open(aw_name+'.txt','wt',encoding='utf-8') as wf:
  */
   __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_5parse_3choose, NULL, __pyx_n_s_parse); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 35, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_choose, __pyx_t_1) < 0) __PYX_ERR(0, 35, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "parse.pyx":38
- *     with open(aw_name,'rt',encoding='utf-8') as rf:
- *         return sorted(list(set(parse_word(rf.read()))))
+  /* "parse.pyx":40
+ *             for each in sorted(list(set(parse_word(rf.read()))),reverse=True):
+ *                 wf.write(each+';')
  * def pyfind_by_suf(dir,suffix):             # <<<<<<<<<<<<<<
  *     return find_by_suf(dir,suffix)
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_5parse_5pyfind_by_suf, NULL, __pyx_n_s_parse); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 38, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_5parse_5pyfind_by_suf, NULL, __pyx_n_s_parse); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 40, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyfind_by_suf, __pyx_t_1) < 0) __PYX_ERR(0, 38, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyfind_by_suf, __pyx_t_1) < 0) __PYX_ERR(0, 40, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "parse.pyx":1
