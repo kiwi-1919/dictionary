@@ -34,6 +34,8 @@ def parse_sents_to_words(csv_name):
         wf.close()
 def choose(aw_name):
     with open(aw_name,'rt',encoding='utf-8') as rf:
-        return sorted(list(set(parse_word(rf.read()))))
+        with open(aw_name+'.txt','wt',encoding='utf-8') as wf:
+            for each in sorted(list(set(parse_word(rf.read()))),reverse=True):
+                wf.write(each+';')
 def pyfind_by_suf(dir,suffix):
     return find_by_suf(dir,suffix)
