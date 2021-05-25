@@ -23,6 +23,8 @@ def parse_sents_to_words(csv_name):
         wc=csv.writer(wf)
         s=spacy.load('en_core_web_lg')
         for each in rc:
+            if not each:
+                break
             doc=s(each[0])
             wc.writerow([word.lemma_ for word in doc])
     except:
