@@ -2,6 +2,7 @@
 cimport cython
 import spacy
 import csv
+import os
 cdef list parse_word(str txt):
     cdef list l
     #end-cdef
