@@ -33,3 +33,5 @@ def parse_sents_to_words(csv_name):
 def choose(aw_name):
     with open(aw_name,'rt') as rf:
         return sorted(list(set(parse_word(rf.read()))))
+def find_by_suf(dir,suffix):
+    return find_by_suf(dir,suffix)
