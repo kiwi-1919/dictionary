@@ -4,7 +4,7 @@ from distutils.extension import Extension
 # 必须部分
 from Cython.Distutils import build_ext
 
-ext_modules = [Extension("deal", ["deal.pyx"],
+ext_modules = [Extension("parse", ["parse.pyx"],
                          include_dirs=['C:\\Users\\HIn\\AppData\\Local\\Programs\\Python\\Python39\\include',
                                        'C:\\Users\\HIn\\AppData\\Local\\Programs\\Python\\Python39\\Lib\\site'
                                        '-packages\\murmurhash\\include',
@@ -26,4 +26,4 @@ ext_modules = [Extension("deal", ["deal.pyx"],
                                        r'C:\Program Files (x86)\Windows Kits\10\Lib\10.0.19041.0\um\x86']
                          )]
 
-setup(name="deal", cmdclass={"build_ext": build_ext}, ext_modules=ext_modules)
+setup(name="parse", cmdclass={"build_ext": build_ext}, ext_modules=ext_modules)
