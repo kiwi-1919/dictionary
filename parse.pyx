@@ -21,7 +21,7 @@ def parse_sents_to_words(csv_name):
         rc=csv.reader(rf)
         wc=csv.writer(wf)
         s=spacy.load('en_core_web_lg')
-        for each in c:
+        for each in rc:
             doc=s(each)
             wc.writerow([word.lemma_ for word in doc])
     except:
