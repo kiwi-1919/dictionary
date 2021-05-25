@@ -17,8 +17,8 @@ cdef list find_by_suf(str dir,str suffix):
     return li
 def parse_sents_to_words(csv_name):
     try:
-        rf=open(csv_name,'rt')
-        wf=open('storey_'+csv_name,'wt')
+        rf=open(csv_name,'rt',encoding='utf-8')
+        wf=open('storey_'+csv_name,'wt',encoding='utf-8')
         rc=csv.reader(rf)
         wc=csv.writer(wf)
         s=spacy.load('en_core_web_lg')
@@ -31,7 +31,7 @@ def parse_sents_to_words(csv_name):
         rf.close()
         wf.close()
 def choose(aw_name):
-    with open(aw_name,'rt') as rf:
+    with open(aw_name,'rt',encoding='utf-8') as rf:
         return sorted(list(set(parse_word(rf.read()))))
 def pyfind_by_suf(dir,suffix):
     return find_by_suf(dir,suffix)
