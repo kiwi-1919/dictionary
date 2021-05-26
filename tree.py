@@ -8,7 +8,6 @@ class node:
         self.tree = tree
         self.parent = parent
         self.name = name
-        self.children = self.tree.children(self.name)
 
     def add(self):
         try:
