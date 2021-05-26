@@ -20,7 +20,10 @@ class node:
 
 
 def reset(root=None):
-    os.remove('data.tree')
+    try:
+        os.remove('data.tree')
+    except:
+        pass
     tree = Tree()
     tree.create_node(root, root)
     while True:
