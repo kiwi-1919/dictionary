@@ -42,3 +42,12 @@ def show_node(name):
         tree = pickle.load(data)
         n = node(parent=None, name=name, tree=tree)
         n.show()
+
+
+def add_node(name, parent):
+    with open('data.tree', 'rb') as rf:
+        tree = pickle.load(rf)
+        n = node(parent=parent, name=name, tree=tree)
+        n.add()
+    with open('data.tree', 'wb') as wf:
+        pickle.dump(tree, wf)
