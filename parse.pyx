@@ -35,7 +35,12 @@ def parse_sents_to_words(csv_name):
 def choose(aw_name):
     with open(aw_name,'rt',encoding='utf-8') as rf:
         with open(aw_name+'.txt','wt',encoding='utf-8') as wf:
+            solve=spacy.load('en_core_web_lg')
             for each in sorted(list(set(parse_word(rf.read()))),reverse=True):
-                wf.write(each+';')
+                try:
+                    word=solve(each)[0].lemma_
+                    wf.write(word+';')
+                except:
+                    pass
 def pyfind_by_suf(dir,suffix):
     return find_by_suf(dir,suffix)
