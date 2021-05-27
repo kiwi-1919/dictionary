@@ -2289,8 +2289,10 @@ static PyObject *__pyx_pf_5parse_2choose(CYTHON_UNUSED PyObject *__pyx_self, PyO
   PyObject *(*__pyx_t_14)(PyObject *);
   PyObject *__pyx_t_15 = NULL;
   PyObject *__pyx_t_16 = NULL;
-  int __pyx_t_17;
-  int __pyx_t_18;
+  PyObject *__pyx_t_17 = NULL;
+  PyObject *__pyx_t_18 = NULL;
+  int __pyx_t_19;
+  int __pyx_t_20;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -2417,7 +2419,7 @@ static PyObject *__pyx_pf_5parse_2choose(CYTHON_UNUSED PyObject *__pyx_self, PyO
  *         with open(aw_name+'.txt','wt',encoding='utf-8') as wf:
  *             solve=spacy.load('en_core_web_lg')             # <<<<<<<<<<<<<<
  *             for each in sorted(list(set(parse_word(rf.read()))),reverse=True):
- *                 word=solve(each)[0].lemma_
+ *                 try:
  */
                   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_spacy); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 38, __pyx_L17_error)
                   __Pyx_GOTREF(__pyx_t_2);
@@ -2446,8 +2448,8 @@ static PyObject *__pyx_pf_5parse_2choose(CYTHON_UNUSED PyObject *__pyx_self, PyO
  *         with open(aw_name+'.txt','wt',encoding='utf-8') as wf:
  *             solve=spacy.load('en_core_web_lg')
  *             for each in sorted(list(set(parse_word(rf.read()))),reverse=True):             # <<<<<<<<<<<<<<
- *                 word=solve(each)[0].lemma_
- *                 wf.write(word+';')
+ *                 try:
+ *                     word=solve(each)[0].lemma_
  */
                   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_rf, __pyx_n_s_read); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 39, __pyx_L17_error)
                   __Pyx_GOTREF(__pyx_t_1);
@@ -2534,70 +2536,123 @@ static PyObject *__pyx_pf_5parse_2choose(CYTHON_UNUSED PyObject *__pyx_self, PyO
                     /* "parse.pyx":40
  *             solve=spacy.load('en_core_web_lg')
  *             for each in sorted(list(set(parse_word(rf.read()))),reverse=True):
- *                 word=solve(each)[0].lemma_             # <<<<<<<<<<<<<<
- *                 wf.write(word+';')
- * def pyfind_by_suf(dir,suffix):
+ *                 try:             # <<<<<<<<<<<<<<
+ *                     word=solve(each)[0].lemma_
+ *                     wf.write(word+';')
  */
-                    __Pyx_INCREF(__pyx_v_solve);
-                    __pyx_t_3 = __pyx_v_solve; __pyx_t_5 = NULL;
-                    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
-                      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_3);
-                      if (likely(__pyx_t_5)) {
-                        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
-                        __Pyx_INCREF(__pyx_t_5);
-                        __Pyx_INCREF(function);
-                        __Pyx_DECREF_SET(__pyx_t_3, function);
-                      }
-                    }
-                    __pyx_t_2 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_5, __pyx_v_each) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_each);
-                    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-                    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 40, __pyx_L17_error)
-                    __Pyx_GOTREF(__pyx_t_2);
-                    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-                    __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 40, __pyx_L17_error)
-                    __Pyx_GOTREF(__pyx_t_3);
-                    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-                    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_lemma); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 40, __pyx_L17_error)
-                    __Pyx_GOTREF(__pyx_t_2);
-                    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-                    __Pyx_XDECREF_SET(__pyx_v_word, __pyx_t_2);
-                    __pyx_t_2 = 0;
+                    {
+                      __Pyx_PyThreadState_declare
+                      __Pyx_PyThreadState_assign
+                      __Pyx_ExceptionSave(&__pyx_t_15, &__pyx_t_16, &__pyx_t_17);
+                      __Pyx_XGOTREF(__pyx_t_15);
+                      __Pyx_XGOTREF(__pyx_t_16);
+                      __Pyx_XGOTREF(__pyx_t_17);
+                      /*try:*/ {
 
-                    /* "parse.pyx":41
+                        /* "parse.pyx":41
  *             for each in sorted(list(set(parse_word(rf.read()))),reverse=True):
- *                 word=solve(each)[0].lemma_
- *                 wf.write(word+';')             # <<<<<<<<<<<<<<
- * def pyfind_by_suf(dir,suffix):
- *     return find_by_suf(dir,suffix)
+ *                 try:
+ *                     word=solve(each)[0].lemma_             # <<<<<<<<<<<<<<
+ *                     wf.write(word+';')
+ *                 except:
  */
-                    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_wf, __pyx_n_s_write); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 41, __pyx_L17_error)
-                    __Pyx_GOTREF(__pyx_t_3);
-                    __pyx_t_5 = PyNumber_Add(__pyx_v_word, __pyx_kp_u_); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 41, __pyx_L17_error)
-                    __Pyx_GOTREF(__pyx_t_5);
-                    __pyx_t_15 = NULL;
-                    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
-                      __pyx_t_15 = PyMethod_GET_SELF(__pyx_t_3);
-                      if (likely(__pyx_t_15)) {
-                        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
-                        __Pyx_INCREF(__pyx_t_15);
-                        __Pyx_INCREF(function);
-                        __Pyx_DECREF_SET(__pyx_t_3, function);
+                        __Pyx_INCREF(__pyx_v_solve);
+                        __pyx_t_3 = __pyx_v_solve; __pyx_t_5 = NULL;
+                        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
+                          __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_3);
+                          if (likely(__pyx_t_5)) {
+                            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+                            __Pyx_INCREF(__pyx_t_5);
+                            __Pyx_INCREF(function);
+                            __Pyx_DECREF_SET(__pyx_t_3, function);
+                          }
+                        }
+                        __pyx_t_2 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_5, __pyx_v_each) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_each);
+                        __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+                        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 41, __pyx_L25_error)
+                        __Pyx_GOTREF(__pyx_t_2);
+                        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+                        __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 41, __pyx_L25_error)
+                        __Pyx_GOTREF(__pyx_t_3);
+                        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+                        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_lemma); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 41, __pyx_L25_error)
+                        __Pyx_GOTREF(__pyx_t_2);
+                        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+                        __Pyx_XDECREF_SET(__pyx_v_word, __pyx_t_2);
+                        __pyx_t_2 = 0;
+
+                        /* "parse.pyx":42
+ *                 try:
+ *                     word=solve(each)[0].lemma_
+ *                     wf.write(word+';')             # <<<<<<<<<<<<<<
+ *                 except:
+ *                     pass
+ */
+                        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_wf, __pyx_n_s_write); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 42, __pyx_L25_error)
+                        __Pyx_GOTREF(__pyx_t_3);
+                        __pyx_t_5 = PyNumber_Add(__pyx_v_word, __pyx_kp_u_); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 42, __pyx_L25_error)
+                        __Pyx_GOTREF(__pyx_t_5);
+                        __pyx_t_18 = NULL;
+                        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
+                          __pyx_t_18 = PyMethod_GET_SELF(__pyx_t_3);
+                          if (likely(__pyx_t_18)) {
+                            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+                            __Pyx_INCREF(__pyx_t_18);
+                            __Pyx_INCREF(function);
+                            __Pyx_DECREF_SET(__pyx_t_3, function);
+                          }
+                        }
+                        __pyx_t_2 = (__pyx_t_18) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_18, __pyx_t_5) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_5);
+                        __Pyx_XDECREF(__pyx_t_18); __pyx_t_18 = 0;
+                        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+                        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 42, __pyx_L25_error)
+                        __Pyx_GOTREF(__pyx_t_2);
+                        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+                        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+                        /* "parse.pyx":40
+ *             solve=spacy.load('en_core_web_lg')
+ *             for each in sorted(list(set(parse_word(rf.read()))),reverse=True):
+ *                 try:             # <<<<<<<<<<<<<<
+ *                     word=solve(each)[0].lemma_
+ *                     wf.write(word+';')
+ */
                       }
+                      __Pyx_XDECREF(__pyx_t_15); __pyx_t_15 = 0;
+                      __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
+                      __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
+                      goto __pyx_L32_try_end;
+                      __pyx_L25_error:;
+                      __Pyx_XDECREF(__pyx_t_18); __pyx_t_18 = 0;
+                      __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+                      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+                      __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+                      /* "parse.pyx":43
+ *                     word=solve(each)[0].lemma_
+ *                     wf.write(word+';')
+ *                 except:             # <<<<<<<<<<<<<<
+ *                     pass
+ * def pyfind_by_suf(dir,suffix):
+ */
+                      /*except:*/ {
+                        __Pyx_ErrRestore(0,0,0);
+                        goto __pyx_L26_exception_handled;
+                      }
+                      __pyx_L26_exception_handled:;
+                      __Pyx_XGIVEREF(__pyx_t_15);
+                      __Pyx_XGIVEREF(__pyx_t_16);
+                      __Pyx_XGIVEREF(__pyx_t_17);
+                      __Pyx_ExceptionReset(__pyx_t_15, __pyx_t_16, __pyx_t_17);
+                      __pyx_L32_try_end:;
                     }
-                    __pyx_t_2 = (__pyx_t_15) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_15, __pyx_t_5) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_5);
-                    __Pyx_XDECREF(__pyx_t_15); __pyx_t_15 = 0;
-                    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-                    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 41, __pyx_L17_error)
-                    __Pyx_GOTREF(__pyx_t_2);
-                    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-                    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
                     /* "parse.pyx":39
  *         with open(aw_name+'.txt','wt',encoding='utf-8') as wf:
  *             solve=spacy.load('en_core_web_lg')
  *             for each in sorted(list(set(parse_word(rf.read()))),reverse=True):             # <<<<<<<<<<<<<<
- *                 word=solve(each)[0].lemma_
- *                 wf.write(word+';')
+ *                 try:
+ *                     word=solve(each)[0].lemma_
  */
                   }
                   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -2616,7 +2671,7 @@ static PyObject *__pyx_pf_5parse_2choose(CYTHON_UNUSED PyObject *__pyx_self, PyO
                 goto __pyx_L22_try_end;
                 __pyx_L17_error:;
                 __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-                __Pyx_XDECREF(__pyx_t_15); __pyx_t_15 = 0;
+                __Pyx_XDECREF(__pyx_t_18); __pyx_t_18 = 0;
                 __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
                 __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
                 __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -2628,16 +2683,16 @@ static PyObject *__pyx_pf_5parse_2choose(CYTHON_UNUSED PyObject *__pyx_self, PyO
                   __Pyx_GOTREF(__pyx_t_3);
                   __pyx_t_5 = PyTuple_Pack(3, __pyx_t_1, __pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 37, __pyx_L19_except_error)
                   __Pyx_GOTREF(__pyx_t_5);
-                  __pyx_t_16 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_5, NULL);
+                  __pyx_t_17 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_5, NULL);
                   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
                   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-                  if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 37, __pyx_L19_except_error)
-                  __Pyx_GOTREF(__pyx_t_16);
-                  __pyx_t_17 = __Pyx_PyObject_IsTrue(__pyx_t_16);
-                  __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-                  if (__pyx_t_17 < 0) __PYX_ERR(0, 37, __pyx_L19_except_error)
-                  __pyx_t_18 = ((!(__pyx_t_17 != 0)) != 0);
-                  if (__pyx_t_18) {
+                  if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 37, __pyx_L19_except_error)
+                  __Pyx_GOTREF(__pyx_t_17);
+                  __pyx_t_19 = __Pyx_PyObject_IsTrue(__pyx_t_17);
+                  __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+                  if (__pyx_t_19 < 0) __PYX_ERR(0, 37, __pyx_L19_except_error)
+                  __pyx_t_20 = ((!(__pyx_t_19 != 0)) != 0);
+                  if (__pyx_t_20) {
                     __Pyx_GIVEREF(__pyx_t_1);
                     __Pyx_GIVEREF(__pyx_t_2);
                     __Pyx_XGIVEREF(__pyx_t_3);
@@ -2677,11 +2732,11 @@ static PyObject *__pyx_pf_5parse_2choose(CYTHON_UNUSED PyObject *__pyx_self, PyO
               }
               __pyx_L16:;
             }
-            goto __pyx_L28;
+            goto __pyx_L36;
             __pyx_L13_error:;
             __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
             goto __pyx_L7_error;
-            __pyx_L28:;
+            __pyx_L36:;
           }
 
           /* "parse.pyx":36
@@ -2698,7 +2753,7 @@ static PyObject *__pyx_pf_5parse_2choose(CYTHON_UNUSED PyObject *__pyx_self, PyO
         goto __pyx_L12_try_end;
         __pyx_L7_error:;
         __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __Pyx_XDECREF(__pyx_t_15); __pyx_t_15 = 0;
+        __Pyx_XDECREF(__pyx_t_18); __pyx_t_18 = 0;
         __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -2715,11 +2770,11 @@ static PyObject *__pyx_pf_5parse_2choose(CYTHON_UNUSED PyObject *__pyx_self, PyO
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
           if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 36, __pyx_L9_except_error)
           __Pyx_GOTREF(__pyx_t_9);
-          __pyx_t_18 = __Pyx_PyObject_IsTrue(__pyx_t_9);
+          __pyx_t_20 = __Pyx_PyObject_IsTrue(__pyx_t_9);
           __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-          if (__pyx_t_18 < 0) __PYX_ERR(0, 36, __pyx_L9_except_error)
-          __pyx_t_17 = ((!(__pyx_t_18 != 0)) != 0);
-          if (__pyx_t_17) {
+          if (__pyx_t_20 < 0) __PYX_ERR(0, 36, __pyx_L9_except_error)
+          __pyx_t_19 = ((!(__pyx_t_20 != 0)) != 0);
+          if (__pyx_t_19) {
             __Pyx_GIVEREF(__pyx_t_3);
             __Pyx_GIVEREF(__pyx_t_2);
             __Pyx_XGIVEREF(__pyx_t_1);
@@ -2759,11 +2814,11 @@ static PyObject *__pyx_pf_5parse_2choose(CYTHON_UNUSED PyObject *__pyx_self, PyO
       }
       __pyx_L6:;
     }
-    goto __pyx_L32;
+    goto __pyx_L40;
     __pyx_L3_error:;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     goto __pyx_L1_error;
-    __pyx_L32:;
+    __pyx_L40:;
   }
 
   /* "parse.pyx":35
@@ -2782,7 +2837,7 @@ static PyObject *__pyx_pf_5parse_2choose(CYTHON_UNUSED PyObject *__pyx_self, PyO
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_XDECREF(__pyx_t_15);
+  __Pyx_XDECREF(__pyx_t_18);
   __Pyx_AddTraceback("parse.choose", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -2796,9 +2851,9 @@ static PyObject *__pyx_pf_5parse_2choose(CYTHON_UNUSED PyObject *__pyx_self, PyO
   return __pyx_r;
 }
 
-/* "parse.pyx":42
- *                 word=solve(each)[0].lemma_
- *                 wf.write(word+';')
+/* "parse.pyx":45
+ *                 except:
+ *                     pass
  * def pyfind_by_suf(dir,suffix):             # <<<<<<<<<<<<<<
  *     return find_by_suf(dir,suffix)
  */
@@ -2838,11 +2893,11 @@ static PyObject *__pyx_pw_5parse_5pyfind_by_suf(PyObject *__pyx_self, PyObject *
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_suffix)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("pyfind_by_suf", 1, 2, 2, 1); __PYX_ERR(0, 42, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("pyfind_by_suf", 1, 2, 2, 1); __PYX_ERR(0, 45, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "pyfind_by_suf") < 0)) __PYX_ERR(0, 42, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "pyfind_by_suf") < 0)) __PYX_ERR(0, 45, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -2855,7 +2910,7 @@ static PyObject *__pyx_pw_5parse_5pyfind_by_suf(PyObject *__pyx_self, PyObject *
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("pyfind_by_suf", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 42, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("pyfind_by_suf", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 45, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("parse.pyfind_by_suf", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -2877,23 +2932,23 @@ static PyObject *__pyx_pf_5parse_4pyfind_by_suf(CYTHON_UNUSED PyObject *__pyx_se
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("pyfind_by_suf", 0);
 
-  /* "parse.pyx":43
- *                 wf.write(word+';')
+  /* "parse.pyx":46
+ *                     pass
  * def pyfind_by_suf(dir,suffix):
  *     return find_by_suf(dir,suffix)             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  if (!(likely(PyUnicode_CheckExact(__pyx_v_dir))||((__pyx_v_dir) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_v_dir)->tp_name), 0))) __PYX_ERR(0, 43, __pyx_L1_error)
-  if (!(likely(PyUnicode_CheckExact(__pyx_v_suffix))||((__pyx_v_suffix) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_v_suffix)->tp_name), 0))) __PYX_ERR(0, 43, __pyx_L1_error)
-  __pyx_t_1 = __pyx_f_5parse_find_by_suf(((PyObject*)__pyx_v_dir), ((PyObject*)__pyx_v_suffix)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 43, __pyx_L1_error)
+  if (!(likely(PyUnicode_CheckExact(__pyx_v_dir))||((__pyx_v_dir) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_v_dir)->tp_name), 0))) __PYX_ERR(0, 46, __pyx_L1_error)
+  if (!(likely(PyUnicode_CheckExact(__pyx_v_suffix))||((__pyx_v_suffix) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_v_suffix)->tp_name), 0))) __PYX_ERR(0, 46, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_5parse_find_by_suf(((PyObject*)__pyx_v_dir), ((PyObject*)__pyx_v_suffix)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 46, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "parse.pyx":42
- *                 word=solve(each)[0].lemma_
- *                 wf.write(word+';')
+  /* "parse.pyx":45
+ *                 except:
+ *                     pass
  * def pyfind_by_suf(dir,suffix):             # <<<<<<<<<<<<<<
  *     return find_by_suf(dir,suffix)
  */
@@ -3064,16 +3119,16 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__6);
   __pyx_codeobj__7 = (PyObject*)__Pyx_PyCode_New(1, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__6, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_parse_pyx, __pyx_n_s_choose, 35, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__7)) __PYX_ERR(0, 35, __pyx_L1_error)
 
-  /* "parse.pyx":42
- *                 word=solve(each)[0].lemma_
- *                 wf.write(word+';')
+  /* "parse.pyx":45
+ *                 except:
+ *                     pass
  * def pyfind_by_suf(dir,suffix):             # <<<<<<<<<<<<<<
  *     return find_by_suf(dir,suffix)
  */
-  __pyx_tuple__8 = PyTuple_Pack(2, __pyx_n_s_dir, __pyx_n_s_suffix); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(0, 42, __pyx_L1_error)
+  __pyx_tuple__8 = PyTuple_Pack(2, __pyx_n_s_dir, __pyx_n_s_suffix); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(0, 45, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__8);
   __Pyx_GIVEREF(__pyx_tuple__8);
-  __pyx_codeobj__9 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_parse_pyx, __pyx_n_s_pyfind_by_suf, 42, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__9)) __PYX_ERR(0, 42, __pyx_L1_error)
+  __pyx_codeobj__9 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_parse_pyx, __pyx_n_s_pyfind_by_suf, 45, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__9)) __PYX_ERR(0, 45, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -3414,15 +3469,15 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_choose, __pyx_t_1) < 0) __PYX_ERR(0, 35, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "parse.pyx":42
- *                 word=solve(each)[0].lemma_
- *                 wf.write(word+';')
+  /* "parse.pyx":45
+ *                 except:
+ *                     pass
  * def pyfind_by_suf(dir,suffix):             # <<<<<<<<<<<<<<
  *     return find_by_suf(dir,suffix)
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_5parse_5pyfind_by_suf, NULL, __pyx_n_s_parse); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 42, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_5parse_5pyfind_by_suf, NULL, __pyx_n_s_parse); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 45, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyfind_by_suf, __pyx_t_1) < 0) __PYX_ERR(0, 42, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyfind_by_suf, __pyx_t_1) < 0) __PYX_ERR(0, 45, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "parse.pyx":1
