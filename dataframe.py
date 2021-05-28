@@ -9,7 +9,7 @@ def setup():
     cur = connect.cursor()
     cur.execute('CREATE TABLE aw (word TEXT)')
     for each in li:
-        with open(each + '.aw.txt', 'rt') as rf:
+        with open(each + '.aw.txt', 'rt', encoding='utf-8') as rf:
             for item in rf.read().split(';'):
                 cur.execute(f"INSERT INTO aw VALUES('{item}')")
     connect.commit()
@@ -18,7 +18,7 @@ def setup():
     cur = connect.cursor()
     cur.execute('CREATE TABLE st (sents TEXT)')
     for each in li:
-        with open(each + '.csv', 'rt') as rf:
+        with open(each + '.csv', 'rt', encoding='utf-8') as rf:
             c = csv.reader(rf)
             for item in c:
                 try:
@@ -31,7 +31,7 @@ def setup():
     cur = connect.cursor()
     cur.execute('CREATE TABLE sw (wordlist TEXT)')
     for each in li:
-        with open('storey_' + each + '.csv', 'rt') as rf:
+        with open('storey_' + each + '.csv', 'rt', encoding='utf-8') as rf:
             c = csv.reader(rf)
             for item in c:
                 words = str()
