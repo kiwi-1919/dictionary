@@ -44,9 +44,7 @@ def setup():
         with open('storey_' + each + '.csv', 'rt', encoding='utf-8') as rf:
             c = csv.reader(rf)
             for item in c:
-                words = str()
-                for word in item:
-                    words += (word + ';')
+                words = ';'.join(item)
                 if not words:
                     continue
                 cur.execute(f"INSERT OR IGNORE INTO sw (wordlist) VALUES ('{words}')")
