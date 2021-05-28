@@ -21,12 +21,15 @@ def setup():
         with open(each + '.csv', 'rt') as rf:
             c = csv.reader(rf)
             for item in c:
-                cur.execute(f"INSERT INTO sents VALUES('{item[0]}')")
+                try:
+                    cur.execute(f"INSERT INTO st VALUES('{item[0]}')")
+                except:
+                    pass
     connect.commit()
     connect.close()
     connect = sqlite3.connect('.\\df\\sw.db')
     cur = connect.cursor()
-    cur.execute('CREATE TABLE sw (wordlist TXT)')
+    cur.execute('CREATE TABLE sw (wordlist TEXT)')
     for each in li:
         with open('storey_' + each + '.csv', 'rt') as rf:
             c = csv.reader(rf)
