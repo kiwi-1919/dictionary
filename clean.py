@@ -8,3 +8,7 @@ def remove():
         os.remove(each + '.aw.txt')
         os.remove(each + '.csv')
         os.remove('storey_' + each + '.csv')
+
+
+if __name__ == '__main__':
+    remove()
