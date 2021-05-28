@@ -32,10 +32,8 @@ def setup():
         with open(each + '.csv', 'rt', encoding='utf-8') as rf:
             c = csv.reader(rf)
             for item in c:
-                try:
-                    cur.execute(f"INSERT OR IGNORE INTO st (sents) VALUES ('{item[0]}')")
-                except:
-                    pass
+                if item:
+                    cur.execute(f'INSERT OR IGNORE INTO st (sents) VALUES ("{item[0]}")')
     connect.commit()
     cur.execute('CREATE TABLE sw'
                 '(wordlist TEXT PRIMARY KEY NOT NULL);')
@@ -47,7 +45,7 @@ def setup():
                 words = ';'.join(item)
                 if not words:
                     continue
-                cur.execute(f"INSERT OR IGNORE INTO sw (wordlist) VALUES ('{words}')")
+                cur.execute(f'INSERT OR IGNORE INTO sw (wordlist) VALUES ("{words}")')
     connect.commit()
     connect.close()
     print('congratulations')
