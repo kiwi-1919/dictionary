@@ -1,6 +1,8 @@
 import sqlite3
 import os
 import csv
+import tkinter
+
 import tqdm
 
 
@@ -26,17 +28,17 @@ def setup():
                 cur.execute(f"INSERT OR IGNORE INTO aw (word) VALUES ('{item}')")
     connect.commit()
     cur.execute('CREATE TABLE st'
-                '(sents TEXT PRIMARY KEY NOT NULL);')
+                '(sents INT PRIMARY KEY NOT NULL);')
     connect.commit()
     for each in tqdm.tqdm(li):
         with open(each + '.csv', 'rt', encoding='utf-8') as rf:
             c = csv.reader(rf)
             for item in c:
                 if item:
-                    cur.execute(f'INSERT OR IGNORE INTO st (sents) VALUES ("{item[0]}")')
+                    cur.execute(f'INSERT OR IGNORE INTO st (sents) VALUES ({int.from_bytes(item[0].encode(), "big")})')
     connect.commit()
     cur.execute('CREATE TABLE sw'
-                '(wordlist TEXT PRIMARY KEY NOT NULL);')
+                '(wordlist INT PRIMARY KEY NOT NULL);')
     connect.commit()
     for each in tqdm.tqdm(li):
         with open('storey_' + each + '.csv', 'rt', encoding='utf-8') as rf:
@@ -45,7 +47,7 @@ def setup():
                 words = ';'.join(item)
                 if not words:
                     continue
-                cur.execute(f'INSERT OR IGNORE INTO sw (wordlist) VALUES ("{words}")')
+                cur.execute(f'INSERT OR IGNORE INTO sw (wordlist) VALUES ({int.from_bytes(words.encode(), "big")})')
     connect.commit()
     connect.close()
     print('congratulations')
