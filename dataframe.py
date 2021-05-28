@@ -11,7 +11,7 @@ def setup():
     for each in li:
         with open(each + '.aw.txt', 'rt', encoding='utf-8') as rf:
             for item in rf.read().split(';'):
-                cur.execute(f"INSERT INTO aw VALUES('{item}');")
+                cur.execute(f"INSERT INTO aw VALUES ('{item}')")
     connect.commit()
     connect.close()
     connect = sqlite3.connect('.\\df\\st.db')
@@ -22,7 +22,7 @@ def setup():
             c = csv.reader(rf)
             for item in c:
                 try:
-                    cur.execute(f"INSERT INTO st VALUES('{item[0]}');")
+                    cur.execute(f"INSERT INTO st VALUES ('{item[0]}')")
                 except:
                     pass
     connect.commit()
@@ -37,7 +37,7 @@ def setup():
                 words = str()
                 for word in item:
                     words += (word + ';')
-                cur.execute(f"INSERT INTO sw VALUES('{words}');")
+                cur.execute(f"INSERT INTO sw VALUES ('{words}')")
     connect.commit()
     connect.close()
     print('congratulations')
