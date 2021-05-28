@@ -1,8 +1,6 @@
 import sqlite3
 import os
 import csv
-import tkinter
-
 import tqdm
 
 
