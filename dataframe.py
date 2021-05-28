@@ -12,7 +12,7 @@ def setup():
         with open(each + '.aw.txt', 'rt', encoding='utf-8') as rf:
             for item in rf.read().split(';'):
                 if not item:
-                    break
+                    continue
                 cur.execute(f"INSERT OR IGNORE INTO aw (word) VALUES ('{item}')")
     connect.commit()
     connect.close()
@@ -40,7 +40,7 @@ def setup():
                 for word in item:
                     words += (word + ';')
                 if not words:
-                    break
+                    continue
                 cur.execute(f"INSERT OR IGNORE INTO sw (wordlist) VALUES ('{words}')")
     connect.commit()
     connect.close()
