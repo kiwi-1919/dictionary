@@ -2,6 +2,7 @@ import sqlite3
 import os
 import csv
 import tqdm
+import hashlib
 
 i = 0
 n = 0
@@ -32,7 +33,7 @@ def setup():
     connect.commit()
     cur.execute('CREATE TABLE st'
                 '(sents INT PRIMARY KEY NOT NULL,'
-                'id INT NOT NULL);')
+                'id TEXT NOT NULL);')
     connect.commit()
     for each in tqdm.tqdm(li):
         with open(each + '.csv', 'rt', encoding='utf-8') as rf:
@@ -41,11 +42,12 @@ def setup():
                 if item:
                     i += 1
                     cur.execute(
-                        f'INSERT OR IGNORE INTO st (sents,id) VALUES ({int.from_bytes(item[0].encode(), "big")},{i})')
+                        f'INSERT OR IGNORE INTO st (sents,id) VALUES ({int.from_bytes(item[0].encode(), "big")},'
+                        f'"{hashlib.sha1(item[0].encode())}")')
     connect.commit()
     cur.execute('CREATE TABLE sw'
                 '(wordlist INT PRIMARY KEY NOT NULL,'
-                'id INT NOT NULL);')
+                'id TEXT NOT NULL);')
     connect.commit()
     for each in tqdm.tqdm(li):
         with open('storey_' + each + '.csv', 'rt', encoding='utf-8') as rf:
@@ -56,7 +58,7 @@ def setup():
                     continue
                 n += 1
                 cur.execute(
-                    f'INSERT OR IGNORE INTO sw (wordlist,id) VALUES ({int.from_bytes(words.encode(), "big")},{n})')
+                    f'INSERT OR IGNORE INTO sw (wordlist,id) VALUES ({int.from_bytes(words.encode(), "big")},"{hashlib.sha1(words.encode())}")')
     connect.commit()
     connect.close()
     if n == i:
