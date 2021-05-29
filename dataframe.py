@@ -3,8 +3,13 @@ import os
 import csv
 import tqdm
 
+i = 0
+n = 0
+
 
 def setup():
+    global i
+    global n
     li = os.listdir('.\\txt')
     connect = sqlite3.connect('.\\df\\data.db')
     cur = connect.cursor()
@@ -26,17 +31,21 @@ def setup():
                 cur.execute(f"INSERT OR IGNORE INTO aw (word) VALUES ('{item}')")
     connect.commit()
     cur.execute('CREATE TABLE st'
-                '(sents INT PRIMARY KEY NOT NULL);')
+                '(sents INT PRIMARY KEY NOT NULL,'
+                'id INT NOT NULL);')
     connect.commit()
     for each in tqdm.tqdm(li):
         with open(each + '.csv', 'rt', encoding='utf-8') as rf:
             c = csv.reader(rf)
             for item in c:
                 if item:
-                    cur.execute(f'INSERT OR IGNORE INTO st (sents) VALUES ({int.from_bytes(item[0].encode(), "big")})')
+                    i += 1
+                    cur.execute(
+                        f'INSERT OR IGNORE INTO st (sents,id) VALUES ({int.from_bytes(item[0].encode(), "big")},{i})')
     connect.commit()
     cur.execute('CREATE TABLE sw'
-                '(wordlist INT PRIMARY KEY NOT NULL);')
+                '(wordlist INT PRIMARY KEY NOT NULL,'
+                'id INT NOT NULL);')
     connect.commit()
     for each in tqdm.tqdm(li):
         with open('storey_' + each + '.csv', 'rt', encoding='utf-8') as rf:
@@ -45,10 +54,15 @@ def setup():
                 words = ';'.join(item)
                 if not words:
                     continue
-                cur.execute(f'INSERT OR IGNORE INTO sw (wordlist) VALUES ({int.from_bytes(words.encode(), "big")})')
+                n += 1
+                cur.execute(
+                    f'INSERT OR IGNORE INTO sw (wordlist,id) VALUES ({int.from_bytes(words.encode(), "big")},{n})')
     connect.commit()
     connect.close()
-    print('congratulations')
+    if n == i:
+        print('congratulations')
+    else:
+        print('emm...')
 
 
 if __name__ == '__main__':
