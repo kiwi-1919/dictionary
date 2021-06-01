@@ -21,6 +21,7 @@ def check(path=None):
                 value = hashlib.sha1(rf.read().encode())
                 cur.execute(f'INSERT OR IGNORE INTO hash (value) VALUES ("{value}")')
         connect.commit()
+        connect.close()
     else:
         connect = sqlite3.connect('.\\df\\data.db')
         cur = connect.cursor()
