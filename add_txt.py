@@ -19,7 +19,7 @@ def check(path=None):
         for each in tqdm.tqdm(os.listdir('.\\txt')):
             with open(os.path.join('.\\txt', each), 'rt') as rf:
                 value = hashlib.sha1(rf.read().encode())
-                cur.execute(f'INSERT OR IGNORE INTO hash (value) VALUES ({value})')
+                cur.execute(f'INSERT OR IGNORE INTO hash (value) VALUES ("{value}")')
         connect.commit()
     else:
         connect = sqlite3.connect('.\\df\\data.db')
@@ -28,9 +28,10 @@ def check(path=None):
             hash_value = hashlib.sha1(rf.read().encode())
         cur.execute("PRAGMA table_info(hash)")
         if (hash_value) in cur.fetchall():
-            pass
-        else:
+            connect.close()
             raise Exception('SameFileError')
+        else:
+            connect.close()
 
 
 def add():
