@@ -17,7 +17,7 @@ def check(path=None):
         cur.execute('CREATE TABLE hash (value TEXT);')
         connect.commit()
         for each in tqdm.tqdm(os.listdir('.\\txt')):
-            with open(os.path.join('.\\txt', each), 'rt') as rf:
+            with open(os.path.join('.\\txt', each), 'rt', encoding='utf-8') as rf:
                 value = hashlib.sha1(rf.read().encode())
                 cur.execute(f'INSERT OR IGNORE INTO hash (value) VALUES ("{value}")')
         connect.commit()
@@ -25,7 +25,7 @@ def check(path=None):
     else:
         connect = sqlite3.connect('.\\df\\data.db')
         cur = connect.cursor()
-        with open(path, 'rt') as rf:
+        with open(path, 'rt', encoding='utf-8') as rf:
             hash_value = hashlib.sha1(rf.read().encode())
         cur.execute("PRAGMA table_info(hash)")
         if (hash_value) in cur.fetchall():
