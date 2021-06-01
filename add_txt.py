@@ -42,7 +42,6 @@ def add():
             l.append(input('add from where'))
         else:
             break
-    check()
     try:
         for each in tqdm.tqdm(l):
             check(path=each)
@@ -55,4 +54,6 @@ def add():
 
 
 if __name__ == '__main__':
-    add()
+    check()
+    if input('add or not:y/o') == 'y':
+        add()
