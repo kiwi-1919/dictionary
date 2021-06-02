@@ -1,6 +1,7 @@
 import sqlite3
 from dataframe import md_5
 import tqdm
+import struct
 
 
 def compare():
@@ -10,7 +11,7 @@ def compare():
     for each in tqdm.tqdm(content):
         if not each:
             continue
-        value = md_5(bytes([int(item) for item in each[0]]))
+        value = md_5(struct.unpack('s', each[0]))
         if value == each[1]:
             pass
         else:
@@ -19,7 +20,7 @@ def compare():
     for each in tqdm.tqdm(content):
         if not each:
             continue
-        value = md_5(bytes([int(item) for item in each[0]]))
+        value = md_5(struct.unpack('s', each[0]))
         if value == each[1]:
             pass
         else:
