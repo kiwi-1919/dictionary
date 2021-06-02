@@ -2,7 +2,7 @@ import os
 import random
 import tqdm
 import sqlite3
-import hashlib
+from dataframe import md_5
 
 
 def check(path=None):
@@ -14,19 +14,19 @@ def check(path=None):
             connect.commit()
         except:
             pass
-        cur.execute('CREATE TABLE hash (value TEXT);')
+        cur.execute('CREATE TABLE hash (value BLOB);')
         connect.commit()
         for each in tqdm.tqdm(os.listdir('.\\txt')):
             with open(os.path.join('.\\txt', each), 'rt', encoding='utf-8') as rf:
-                value = hashlib.sha1(rf.read().encode())
-                cur.execute(f'INSERT OR IGNORE INTO hash (value) VALUES ("{value}")')
+                value = md_5(rf.read().encode()).encode()
+                cur.execute(f'INSERT OR IGNORE INTO hash (value) VALUES (?)', sqlite3.Binary(value))
         connect.commit()
         connect.close()
     else:
         connect = sqlite3.connect('.\\df\\data.db')
         cur = connect.cursor()
         with open(path, 'rt', encoding='utf-8') as rf:
-            hash_value = hashlib.sha1(rf.read().encode())
+            hash_value = md_5(rf.read().encode()).encode()
         cur.execute("PRAGMA table_info(hash)")
         if (hash_value) in cur.fetchall():
             connect.close()
