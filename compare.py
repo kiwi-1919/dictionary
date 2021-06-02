@@ -16,7 +16,7 @@ def compare():
             raise Exception('A difference has been found.')
     content = cur.execute('SELECT wordlist,id from sw')
     for each in tqdm.tqdm(content):
-        value = hashlib.sha1(struct.unpack('s', each[0]))
+        value = hashlib.sha1(struct.unpack('s', each[0])[0])
         if f'{value}' == each[1]:
             pass
         else:
