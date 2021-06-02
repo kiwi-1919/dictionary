@@ -3,7 +3,6 @@ import os
 import csv
 import tqdm
 import hashlib
-import struct
 
 i = 0
 n = 0
@@ -43,7 +42,7 @@ def setup():
                 if item:
                     i += 1
                     cur.execute(
-                        f'INSERT OR IGNORE INTO st (sents,id) VALUES ({struct.pack("s", item[0].encode())},'
+                        f'INSERT OR IGNORE INTO st (sents,id) VALUES ({int.from_bytes(item[0].encode(),"big")},'
                         f'"{hashlib.sha1(item[0].encode())}")')
     connect.commit()
     cur.execute('CREATE TABLE sw'
@@ -59,7 +58,7 @@ def setup():
                     continue
                 n += 1
                 cur.execute(
-                    f'INSERT OR IGNORE INTO sw (wordlist,id) VALUES ({struct.pack("s", words.encode())},'
+                    f'INSERT OR IGNORE INTO sw (wordlist,id) VALUES ({int.from_bytes(words.encode(),"big")},'
                     f'"{hashlib.sha1(words.encode())}")')
     connect.commit()
     connect.close()
