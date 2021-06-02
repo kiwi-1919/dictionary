@@ -49,7 +49,8 @@ def setup():
                 if item:
                     i += 1
                     cur.execute(
-                        f'INSERT OR IGNORE INTO st (sents,id) VALUES ("{struct.pack("s",item[0].encode()).decode()}",'
+                        f'INSERT OR IGNORE INTO st (sents,id) VALUES ('
+                        f'"{struct.pack("s",item[0].encode()).decode(errors="ignore")}",'
                         f'"{md_5(item[0].encode())}")')
     connect.commit()
     cur.execute('CREATE TABLE sw'
@@ -65,7 +66,8 @@ def setup():
                     continue
                 n += 1
                 cur.execute(
-                    f'INSERT OR IGNORE INTO sw (wordlist,id) VALUES ("{struct.pack("s",words.encode()).decode()}",'
+                    f'INSERT OR IGNORE INTO sw (wordlist,id) VALUES ('
+                    f'"{struct.pack("s",words.encode()).decode(errors="ignore")}",' 
                     f'"{md_5(words.encode())}")')
     connect.commit()
     connect.close()
