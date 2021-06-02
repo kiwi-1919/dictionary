@@ -4,7 +4,6 @@ import sqlite3
 import hashlib
 import tqdm
 import struct
-import sys
 
 i = 0
 n = 0
@@ -50,7 +49,7 @@ def setup():
                 if item:
                     i += 1
                     cur.execute(
-                        f'INSERT OR IGNORE INTO st (sents,id) VALUES ("{int.from_bytes(item[0].encode(),sys.byteorder)}",'
+                        f'INSERT OR IGNORE INTO st (sents,id) VALUES ("{struct.pack("s",item[0].encode()).decode()}",'
                         f'"{md_5(item[0].encode())}")')
     connect.commit()
     cur.execute('CREATE TABLE sw'
@@ -66,7 +65,7 @@ def setup():
                     continue
                 n += 1
                 cur.execute(
-                    f'INSERT OR IGNORE INTO sw (wordlist,id) VALUES ("{int.from_bytes(words.encode(),sys.byteorder)}",'
+                    f'INSERT OR IGNORE INTO sw (wordlist,id) VALUES ("{struct.pack("s",words.encode()).decode()}",'
                     f'"{md_5(words.encode())}")')
     connect.commit()
     connect.close()
