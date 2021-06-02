@@ -14,20 +14,21 @@ def check(path=None):
             connect.commit()
         except:
             pass
-        cur.execute('CREATE TABLE hash (value BLOB);')
+        cur.execute('CREATE TABLE hash (value BLOB,id BLOB);')
         connect.commit()
         for each in tqdm.tqdm(os.listdir('.\\txt')):
             with open(os.path.join('.\\txt', each), 'rt', encoding='utf-8') as rf:
                 value = md_5(rf.read().encode()).encode()
-                cur.execute(f'INSERT OR IGNORE INTO hash (value) VALUES (?,)', sqlite3.Binary(value))
+                id = os.path.join('.\\txt', each).encode()
+                cur.execute(f'INSERT OR IGNORE INTO hash (value) VALUES (?,?)',
+                            (sqlite3.Binary(value), sqlite3.Binary(id)))
         connect.commit()
         connect.close()
     else:
         connect = sqlite3.connect('.\\df\\data.db')
-        cur = connect.cursor()
+        cur = connect.execute("SELECT value from hash")
         with open(path, 'rt', encoding='utf-8') as rf:
             hash_value = md_5(rf.read().encode()).encode()
-        cur.execute("PRAGMA table_info(hash)")
         if (hash_value,) in cur.fetchall():
             connect.close()
             raise Exception('SameFileError')
