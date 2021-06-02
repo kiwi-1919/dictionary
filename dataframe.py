@@ -1,11 +1,17 @@
 import csv
 import os
 import sqlite3
-
+import hashlib
 import tqdm
 
 i = 0
 n = 0
+
+
+def md_5(byte):
+    m = hashlib.md5()
+    m.update(byte)
+    return m.hexdigest()
 
 
 def setup():
@@ -42,8 +48,8 @@ def setup():
                 if item:
                     i += 1
                     cur.execute(
-                        f'INSERT OR IGNORE INTO st (sents,id) VALUES ("{int.from_bytes(item[0].encode(),"big")}",'
-                        f'"{hash(item[0])}")')
+                        f'INSERT OR IGNORE INTO st (sents,id) VALUES ("{int.from_bytes(item[0].encode(), "big")}",'
+                        f'"{md_5(item[0].encode())}")')
     connect.commit()
     cur.execute('CREATE TABLE sw'
                 '(wordlist TEXT PRIMARY KEY NOT NULL,'
@@ -58,8 +64,8 @@ def setup():
                     continue
                 n += 1
                 cur.execute(
-                    f'INSERT OR IGNORE INTO sw (wordlist,id) VALUES ("{int.from_bytes(words.encode(),"big")}",'
-                    f'"{hash(words)}")')
+                    f'INSERT OR IGNORE INTO sw (wordlist,id) VALUES ("{int.from_bytes(words.encode(), "big")}",'
+                    f'"{md_5(words.encode())}")')
     connect.commit()
     connect.close()
     if n == i:
