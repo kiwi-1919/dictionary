@@ -19,7 +19,7 @@ def check(path=None):
         for each in tqdm.tqdm(os.listdir('.\\txt')):
             with open(os.path.join('.\\txt', each), 'rt', encoding='utf-8') as rf:
                 value = md_5(rf.read().encode()).encode()
-                cur.execute(f'INSERT OR IGNORE INTO hash (value) VALUES (?)', sqlite3.Binary(value))
+                cur.execute(f'INSERT OR IGNORE INTO hash (value) VALUES (?,)', sqlite3.Binary(value))
         connect.commit()
         connect.close()
     else:
@@ -28,7 +28,7 @@ def check(path=None):
         with open(path, 'rt', encoding='utf-8') as rf:
             hash_value = md_5(rf.read().encode()).encode()
         cur.execute("PRAGMA table_info(hash)")
-        if (hash_value) in cur.fetchall():
+        if (hash_value,) in cur.fetchall():
             connect.close()
             raise Exception('SameFileError')
         else:
