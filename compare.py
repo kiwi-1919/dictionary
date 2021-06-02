@@ -20,7 +20,7 @@ def compare():
         if not each:
             continue
         value = md_5(bytes([int(item) for item in each[0]]))
-        if {value} == each[1]:
+        if value == each[1]:
             pass
         else:
             raise Exception('A difference has been found')
