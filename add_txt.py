@@ -20,7 +20,7 @@ def check(path=None):
             with open(os.path.join('.\\txt', each), 'rt', encoding='utf-8') as rf:
                 value = md_5(rf.read().encode()).encode()
                 id = os.path.join('.\\txt', each).encode()
-                cur.execute(f'INSERT OR IGNORE INTO hash (value) VALUES (?,?)',
+                cur.execute(f'INSERT OR IGNORE INTO hash (value,id) VALUES (?,?)',
                             (sqlite3.Binary(value), sqlite3.Binary(id)))
         connect.commit()
         connect.close()
@@ -29,11 +29,13 @@ def check(path=None):
         cur = connect.execute("SELECT value from hash")
         with open(path, 'rt', encoding='utf-8') as rf:
             hash_value = md_5(rf.read().encode()).encode()
-        if (hash_value,) in cur.fetchall():
-            connect.close()
-            raise Exception('SameFileError')
-        else:
-            connect.close()
+        for each in cur:
+            if hash_value in each:
+                connect.close()
+                raise Exception('SameFileError')
+            else:
+                pass
+        connect.close()
 
 
 def add():
