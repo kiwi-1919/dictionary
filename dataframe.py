@@ -1,9 +1,9 @@
 import csv
+import hashlib
 import os
 import sqlite3
-import hashlib
+
 import tqdm
-import struct
 
 i = 0
 n = 0
@@ -40,7 +40,7 @@ def setup():
     connect.commit()
     cur.execute('CREATE TABLE st'
                 '(sents BLOB PRIMARY KEY NOT NULL,'
-                'id TEXT NOT NULL);')
+                'id BLOB NOT NULL);')
     connect.commit()
     for each in tqdm.tqdm(li):
         with open(each + '.csv', 'rt', encoding='utf-8') as rf:
@@ -50,11 +50,11 @@ def setup():
                     i += 1
                     cur.execute(
                         f'INSERT OR IGNORE INTO st (sents,id) VALUES (?,?)'
-                        , (sqlite3.Binary(item[0].encode()), md_5(item[0].encode())))
+                        , (sqlite3.Binary(item[0].encode()), sqlite3.Binary(md_5(item[0].encode()).encode())))
     connect.commit()
     cur.execute('CREATE TABLE sw'
                 '(wordlist BLOB PRIMARY KEY NOT NULL,'
-                'id TEXT NOT NULL);')
+                'id BLOB NOT NULL);')
     connect.commit()
     for each in tqdm.tqdm(li):
         with open('storey_' + each + '.csv', 'rt', encoding='utf-8') as rf:
@@ -66,7 +66,7 @@ def setup():
                 n += 1
                 cur.execute(
                     f'INSERT OR IGNORE INTO sw (wordlist,id) VALUES (?,?)',
-                    (sqlite3.Binary(words.encode()), md_5(words.encode())))
+                    (sqlite3.Binary(words.encode()), sqlite3.Binary(md_5(words.encode()).encode())))
     connect.commit()
     connect.close()
     if n == i:
