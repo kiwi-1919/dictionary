@@ -1,8 +1,8 @@
-import sqlite3
-import os
 import csv
+import os
+import sqlite3
+
 import tqdm
-import hashlib
 
 i = 0
 n = 0
@@ -43,7 +43,7 @@ def setup():
                     i += 1
                     cur.execute(
                         f'INSERT OR IGNORE INTO st (sents,id) VALUES ("{int.from_bytes(item[0].encode(),"big")}",'
-                        f'"{hashlib.sha1(item[0].encode())}")')
+                        f'"{hash(item[0])}")')
     connect.commit()
     cur.execute('CREATE TABLE sw'
                 '(wordlist TEXT PRIMARY KEY NOT NULL,'
@@ -59,7 +59,7 @@ def setup():
                 n += 1
                 cur.execute(
                     f'INSERT OR IGNORE INTO sw (wordlist,id) VALUES ("{int.from_bytes(words.encode(),"big")}",'
-                    f'"{hashlib.sha1(words.encode())}")')
+                    f'"{hash(words)}")')
     connect.commit()
     connect.close()
     if n == i:
