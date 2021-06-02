@@ -59,7 +59,7 @@ def setup():
                     continue
                 n += 1
                 cur.execute(
-                    f'INSERT OR IGNORE INTO sw (wordlist,id) VALUES ({struct.pack("s", item[0].encode())},'
+                    f'INSERT OR IGNORE INTO sw (wordlist,id) VALUES ({struct.pack("s", words.encode())},'
                     f'"{hashlib.sha1(words.encode())}")')
     connect.commit()
     connect.close()
