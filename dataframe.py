@@ -1,11 +1,18 @@
-import sqlite3
-import os
 import csv
-import tqdm
 import hashlib
+import os
+import sqlite3
+
+import tqdm
 
 i = 0
 n = 0
+
+
+def md_5(byte):
+    m = hashlib.md5()
+    m.update(byte)
+    return m.hexdigest()
 
 
 def setup():
@@ -32,8 +39,8 @@ def setup():
                 cur.execute(f"INSERT OR IGNORE INTO aw (word) VALUES ('{item}')")
     connect.commit()
     cur.execute('CREATE TABLE st'
-                '(sents INT PRIMARY KEY NOT NULL,'
-                'id TEXT NOT NULL);')
+                '(sents BLOB PRIMARY KEY NOT NULL,'
+                'id BLOB NOT NULL);')
     connect.commit()
     for each in tqdm.tqdm(li):
         with open(each + '.csv', 'rt', encoding='utf-8') as rf:
@@ -42,12 +49,12 @@ def setup():
                 if item:
                     i += 1
                     cur.execute(
-                        f'INSERT OR IGNORE INTO st (sents,id) VALUES ({int.from_bytes(item[0].encode(), "big")},'
-                        f'"{hashlib.sha1(item[0].encode())}")')
+                        f'INSERT OR IGNORE INTO st (sents,id) VALUES (?,?)'
+                        , (sqlite3.Binary(item[0].encode()), sqlite3.Binary(md_5(item[0].encode()).encode())))
     connect.commit()
     cur.execute('CREATE TABLE sw'
-                '(wordlist INT PRIMARY KEY NOT NULL,'
-                'id TEXT NOT NULL);')
+                '(wordlist BLOB PRIMARY KEY NOT NULL,'
+                'id BLOB NOT NULL);')
     connect.commit()
     for each in tqdm.tqdm(li):
         with open('storey_' + each + '.csv', 'rt', encoding='utf-8') as rf:
@@ -58,7 +65,8 @@ def setup():
                     continue
                 n += 1
                 cur.execute(
-                    f'INSERT OR IGNORE INTO sw (wordlist,id) VALUES ({int.from_bytes(words.encode(), "big")},"{hashlib.sha1(words.encode())}")')
+                    f'INSERT OR IGNORE INTO sw (wordlist,id) VALUES (?,?)',
+                    (sqlite3.Binary(words.encode()), sqlite3.Binary(md_5(words.encode()).encode())))
     connect.commit()
     connect.close()
     if n == i:
