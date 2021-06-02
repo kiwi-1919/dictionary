@@ -39,7 +39,7 @@ def setup():
                 cur.execute(f"INSERT OR IGNORE INTO aw (word) VALUES ('{item}')")
     connect.commit()
     cur.execute('CREATE TABLE st'
-                '(sents TEXT PRIMARY KEY NOT NULL,'
+                '(sents BLOB PRIMARY KEY NOT NULL,'
                 'id TEXT NOT NULL);')
     connect.commit()
     for each in tqdm.tqdm(li):
@@ -49,12 +49,11 @@ def setup():
                 if item:
                     i += 1
                     cur.execute(
-                        f'INSERT OR IGNORE INTO st (sents,id) VALUES ('
-                        f'"{struct.pack("s",item[0].encode()).decode(errors="ignore")}",'
-                        f'"{md_5(item[0].encode())}")')
+                        f'INSERT OR IGNORE INTO st (sents,id) VALUES (?,?)'
+                        , (sqlite3.Binary(item[0].encode()), md_5(item[0].encode())))
     connect.commit()
     cur.execute('CREATE TABLE sw'
-                '(wordlist TEXT PRIMARY KEY NOT NULL,'
+                '(wordlist BLOB PRIMARY KEY NOT NULL,'
                 'id TEXT NOT NULL);')
     connect.commit()
     for each in tqdm.tqdm(li):
@@ -66,9 +65,8 @@ def setup():
                     continue
                 n += 1
                 cur.execute(
-                    f'INSERT OR IGNORE INTO sw (wordlist,id) VALUES ('
-                    f'"{struct.pack("s",words.encode()).decode(errors="ignore")}",' 
-                    f'"{md_5(words.encode())}")')
+                    f'INSERT OR IGNORE INTO sw (wordlist,id) VALUES (?,?)',
+                    (sqlite3.Binary(words.encode()), md_5(words.encode())))
     connect.commit()
     connect.close()
     if n == i:
