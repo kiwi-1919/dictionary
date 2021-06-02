@@ -3,6 +3,7 @@ import os
 import sqlite3
 import hashlib
 import tqdm
+import struct
 
 i = 0
 n = 0
@@ -38,7 +39,7 @@ def setup():
                 cur.execute(f"INSERT OR IGNORE INTO aw (word) VALUES ('{item}')")
     connect.commit()
     cur.execute('CREATE TABLE st'
-                '(sents TEXT PRIMARY KEY NOT NULL,'
+                '(sents NONE PRIMARY KEY NOT NULL,'
                 'id TEXT NOT NULL);')
     connect.commit()
     for each in tqdm.tqdm(li):
@@ -48,11 +49,11 @@ def setup():
                 if item:
                     i += 1
                     cur.execute(
-                        f'INSERT OR IGNORE INTO st (sents,id) VALUES ("{int.from_bytes(item[0].encode(), "big")}",'
+                        f'INSERT OR IGNORE INTO st (sents,id) VALUES ({struct.pack("=s",item[0].encode())},'
                         f'"{md_5(item[0].encode())}")')
     connect.commit()
     cur.execute('CREATE TABLE sw'
-                '(wordlist TEXT PRIMARY KEY NOT NULL,'
+                '(wordlist NONE PRIMARY KEY NOT NULL,'
                 'id TEXT NOT NULL);')
     connect.commit()
     for each in tqdm.tqdm(li):
@@ -64,7 +65,7 @@ def setup():
                     continue
                 n += 1
                 cur.execute(
-                    f'INSERT OR IGNORE INTO sw (wordlist,id) VALUES ("{int.from_bytes(words.encode(), "big")}",'
+                    f'INSERT OR IGNORE INTO sw (wordlist,id) VALUES ({struct.pack("=s",words.encode())},'
                     f'"{md_5(words.encode())}")')
     connect.commit()
     connect.close()
