@@ -11,7 +11,7 @@ def compare():
     for each in tqdm.tqdm(content):
         if not each:
             continue
-        value = hashlib.sha1(bytes([int(item) for item in each[0]]))
+        value = hashlib.sha1(str(bytes([int(item) for item in each[0]]), 'utf-8').encode())
         if f'{value}' == each[1]:
             pass
         else:
@@ -20,7 +20,7 @@ def compare():
     for each in tqdm.tqdm(content):
         if not each:
             continue
-        value = hashlib.sha1(bytes([int(item) for item in each[0]]))
+        value = hashlib.sha1(str(bytes([int(item) for item in each[0]]), 'utf-8').encode())
         if f'{value}' == each[1]:
             pass
         else:
