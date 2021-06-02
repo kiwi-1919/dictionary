@@ -9,14 +9,14 @@ def compare():
     content = cur.execute('SELECT sents,id from st')
     for each in tqdm.tqdm(content):
         value = hashlib.sha1(bytes(bin(each[0])))
-        if value == each[1]:
+        if f'{value}' == each[1]:
             pass
         else:
             raise Exception('A difference has been found.')
     content = cur.execute('SELECT wordlist,id from sw')
     for each in tqdm.tqdm(content):
-        value = hashlib.sha1(bytes(bin(each)))
-        if value == each[1]:
+        value = hashlib.sha1(bytes(bin(each[0])))
+        if f'{value}' == each[1]:
             pass
         else:
             raise Exception('A difference has been found')
