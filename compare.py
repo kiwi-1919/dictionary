@@ -11,7 +11,7 @@ def compare():
     for each in tqdm.tqdm(content):
         if not each:
             continue
-        value = md_5(struct.unpack('s', each[0]))
+        value = md_5(struct.unpack('=s', each[0]))
         if value == each[1]:
             pass
         else:
@@ -20,7 +20,7 @@ def compare():
     for each in tqdm.tqdm(content):
         if not each:
             continue
-        value = md_5(struct.unpack('s', each[0]))
+        value = md_5(struct.unpack('=s', each[0]))
         if value == each[1]:
             pass
         else:
