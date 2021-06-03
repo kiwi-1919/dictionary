@@ -49,7 +49,7 @@ def setup():
                 if item:
                     i += 1
                     cur.execute(
-                        f'INSERT OR IGNORE INTO st (sents,id) VALUES (?,?)'
+                        f'INSERT INTO st (sents,id) VALUES (?,?)'
                         , (sqlite3.Binary(item[0].encode()), sqlite3.Binary(md_5(item[0].encode()).encode())))
     connect.commit()
     cur.execute('CREATE TABLE sw'
@@ -65,7 +65,7 @@ def setup():
                     continue
                 n += 1
                 cur.execute(
-                    f'INSERT OR IGNORE INTO sw (wordlist,id) VALUES (?,?)',
+                    f'INSERT INTO sw (wordlist,id) VALUES (?,?)',
                     (sqlite3.Binary(words.encode()), sqlite3.Binary(md_5(words.encode()).encode())))
     connect.commit()
     connect.close()
