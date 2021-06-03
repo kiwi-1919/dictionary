@@ -3,17 +3,13 @@ import tqdm
 import dataframe
 
 
-def generate(iter):
-    l = [each for each in iter]
-    for item in l:
-        yield item
 
 
 def compare():
     connect = sqlite3.connect('.\\df\\data.db')
     cur = connect.cursor()
-    li = generate(cur.execute("SELECT sents,id from st"))
-    ls = generate(cur.execute("SELECT wordlist,id from sw"))
+    li = list(cur.execute("SELECT sents,id from st"))
+    ls = list(cur.execute("SELECT wordlist,id from sw"))
     connect.close()
     print("sentence")
     for each in tqdm.tqdm(li):
