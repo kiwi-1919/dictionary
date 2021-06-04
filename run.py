@@ -10,11 +10,11 @@ if __name__ == '__main__':
 compare:2
 match:3''')
     if string == '1':
-        os.system("setup_dataframe.bat")
+        os.system(".\\setup_dataframe.bat")
     elif string == '2':
-        os.system("compare.bat")
+        os.system(".\\compare.bat")
     elif string == "3":
-        os.system("match.bat")
+        os.system(".\\match.bat")
     else:
         print("again")
         os.system("pause")
