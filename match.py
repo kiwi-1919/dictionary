@@ -8,7 +8,7 @@ def match(string=None):
     connect = sqlite3.connect('.\\df\\data.db')
     li = connect.execute("SELECT ind,wordlist from sw")
     ls = connect.execute("SELECT word from aw")
-    lt = list(connect.execute("SELECT ind,sents from st"))
+    lt = list(connect.execute("SELECT sents from st"))
     for each in ls:
         if each[0] == word:
             print("exist")
@@ -35,7 +35,7 @@ if __name__ == '__main__':
     try:
         n = 0
         for each in l:
-            print(each)
+            print(each[0].decode())
             n += 1
             if n >= 5:
                 break
