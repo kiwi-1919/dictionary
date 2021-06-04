@@ -50,7 +50,7 @@ def setup():
                 if item:
                     i += 1
                     cur.execute(
-                        f'INSERT INTO st (index,sents,id) VALUES (?,?)'
+                        f'INSERT INTO st (index,sents,id) VALUES (?,?,?)'
                         , (i, sqlite3.Binary(item[0].encode()), sqlite3.Binary(md_5(item[0].encode()).encode())))
     connect.commit()
     cur.execute('CREATE TABLE sw'
