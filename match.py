@@ -27,7 +27,7 @@ def match(string=None):
     connect.close()
 
 
-if __name__ == '__main__':
+def main():
     try:
         l = match(input("word"))
     except:
@@ -35,9 +35,13 @@ if __name__ == '__main__':
     try:
         n = 0
         for each in l:
-            print(each[0].decode())
+            print("\n" + each[0].decode())
             n += 1
             if n >= 5:
                 break
     except:
         pass
+
+
+if __name__ == '__main__':
+    main()
