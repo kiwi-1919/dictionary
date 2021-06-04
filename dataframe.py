@@ -38,7 +38,7 @@ def setup():
                     continue
                 cur.execute(f"INSERT OR IGNORE INTO aw (word) VALUES ('{item}')")
     connect.commit()
-    cur.execute('''CREATE TABLE st (index INTEGER PRIMARY KEY NOT NULL,sents BLOB NOT NULL,id BLOB NOT NULL);''')
+    cur.execute('''CREATE TABLE st (ind INTEGER PRIMARY KEY NOT NULL,sents BLOB NOT NULL,id BLOB NOT NULL);''')
     connect.commit()
     for each in tqdm.tqdm(li):
         with open(each + '.csv', 'rt', encoding='utf-8') as rf:
@@ -47,10 +47,10 @@ def setup():
                 if item:
                     i += 1
                     cur.execute(
-                        f'INSERT INTO st (index,sents,id) VALUES (?,?,?)'
+                        f'INSERT INTO st (ind,sents,id) VALUES (?,?,?)'
                         , (i, sqlite3.Binary(item[0].encode()), sqlite3.Binary(md_5(item[0].encode()).encode())))
     connect.commit()
-    cur.execute('''CREATE TABLE sw (index INTEGER PRIMARY KEY NOT NULL,wordlist BLOB NOT NULL,id BLOB NOT NULL);''')
+    cur.execute('''CREATE TABLE sw (ind INTEGER PRIMARY KEY NOT NULL,wordlist BLOB NOT NULL,id BLOB NOT NULL);''')
     connect.commit()
     for each in tqdm.tqdm(li):
         with open('storey_' + each + '.csv', 'rt', encoding='utf-8') as rf:
@@ -61,7 +61,7 @@ def setup():
                     continue
                 n += 1
                 cur.execute(
-                    f'INSERT INTO sw (index,wordlist,id) VALUES (?,?,?)',
+                    f'INSERT INTO sw (ind,wordlist,id) VALUES (?,?,?)',
                     (n, sqlite3.Binary(words.encode()), sqlite3.Binary(md_5(words.encode()).encode())))
     connect.commit()
     connect.close()
