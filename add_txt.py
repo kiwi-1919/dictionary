@@ -47,7 +47,7 @@ def add():
             break
     try:
         for each in tqdm.tqdm(l):
-            if not os.listdir('.\\txt'):
+            if os.listdir('.\\txt'):
                 check(path=each)
             os.system(
                 f'copy {each} {os.path.join(os.curdir, "txt", str(random.randint(0, 1000000000000000000)) + ".txt")} '
@@ -58,7 +58,7 @@ def add():
 
 
 if __name__ == '__main__':
-    if not os.listdir('.\\txt'):
+    if os.listdir('.\\txt'):
         check()
     if input('add or not:y/o') == 'y':
         add()
