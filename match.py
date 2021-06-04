@@ -28,7 +28,10 @@ def match(string=None):
 
 
 if __name__ == '__main__':
-    l = match(input("word"))
+    try:
+        l = match(input("word"))
+    except:
+        raise Exception("???")
     try:
         for i in range(5):
             print(l[i])
