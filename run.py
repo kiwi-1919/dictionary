@@ -7,8 +7,8 @@ if __name__ == '__main__':
     except:
         pass
     string = input('''setup:1
-    compare:2
-    match:3''')
+compare:2
+match:3''')
     if string == '1':
         os.system("setup_dataframe.bat")
     elif string == '2':
