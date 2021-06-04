@@ -39,7 +39,7 @@ def setup():
                 cur.execute(f"INSERT OR IGNORE INTO aw (word) VALUES ('{item}')")
     connect.commit()
     cur.execute('CREATE TABLE st'
-                '(index INT PRIMARY KEY NOT NULL,'
+                '(index INTEGER PRIMARY KEY NOT NULL,'
                 'sents BLOB NOT NULL,'
                 'id BLOB NOT NULL);')
     connect.commit()
@@ -54,7 +54,7 @@ def setup():
                         , (i, sqlite3.Binary(item[0].encode()), sqlite3.Binary(md_5(item[0].encode()).encode())))
     connect.commit()
     cur.execute('CREATE TABLE sw'
-                '(index INT PRIMARY KEY NOT NULL,'
+                '(index INTEGER PRIMARY KEY NOT NULL,'
                 'wordlist BLOB NOT NULL,'
                 'id BLOB NOT NULL);')
     connect.commit()
