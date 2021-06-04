@@ -35,7 +35,7 @@ if __name__ == '__main__':
     try:
         n = 0
         for each in l:
-            print(each[0].decode())
+            print("\n"+each[0].decode())
             n += 1
             if n >= 5:
                 break
