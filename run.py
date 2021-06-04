@@ -1,7 +1,9 @@
 import os
 
 os.chdir(os.curdir)
-if __name__ == '__main__':
+
+
+def run():
     try:
         os.mkdir(".\\txt")
         os.mkdir(".\\df")
@@ -26,3 +28,7 @@ match:3''')
         print("again")
         os.system("pause")
     os.system("python -m run")
+
+
+if __name__ == '__main__':
+    run()
