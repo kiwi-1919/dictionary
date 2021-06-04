@@ -10,7 +10,7 @@ if __name__ == '__main__':
 compare:2
 match:3''')
     if string == '1':
-        os.system("cmd /c setup_dataframe.bat")
+
     elif string == '2':
         if os.listdir('.\\txt'):
             os.system("cmd /c compare.bat")

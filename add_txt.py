@@ -57,8 +57,12 @@ def add():
         pass
 
 
-if __name__ == '__main__':
+def main():
     if os.listdir('.\\txt'):
         check()
     if input('add or not:y/o') == 'y':
         add()
+
+
+if __name__ == '__main__':
+    main()
