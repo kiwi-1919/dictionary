@@ -13,4 +13,4 @@ if __name__ == '__main__':
     else:
         print("again")
         os.system("pause")
-    os.system("python -m run.py")
+    os.system("python -m run")
