@@ -12,12 +12,12 @@ match:3''')
     if string == '1':
         os.system(".\\setup_dataframe.bat")
     elif string == '2':
-        if not os.listdir('.\\txt'):
+        if os.listdir('.\\txt'):
             os.system(".\\compare.bat")
         else:
             print("there is nothing")
     elif string == "3":
-        if not os.listdir('.\\txt'):
+        if os.listdir('.\\txt'):
             os.system(".\\match.bat")
         else:
             print("there is nothing")
