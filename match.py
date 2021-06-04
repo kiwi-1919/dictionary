@@ -18,7 +18,7 @@ def match(string=None):
     index = list()
     for each in li:
         wordlist = each[1].decode()
-        if wordlist.find(word) != -1:
+        if word in wordlist.split(';'):
             index.append(each[0])
         else:
             print("nothing", end=";")
