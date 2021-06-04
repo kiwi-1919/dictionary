@@ -14,8 +14,14 @@ def compare():
     li = generate(connect.execute("SELECT sents,id from st"))
     ls = generate(connect.execute("SELECT wordlist,id from sw"))
     print("begin")
-    for each in zip(li, ls):
-        if dataframe.md_5(each[0][0]).encode() == each[0][1] and dataframe.md_5(each[1][0]).encode() == each[1][1]:
+    for each in li:
+        if dataframe.md_5(each[0]).encode() == each[1]:
+            pass
+        else:
+            connect.close()
+            raise Exception("different")
+    for each in ls:
+        if dataframe.md_5(each[0]).encode() == each[1]:
             pass
         else:
             connect.close()
