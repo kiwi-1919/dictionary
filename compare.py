@@ -8,16 +8,9 @@ def compare():
     cur = connect.cursor()
     li = cur.execute("SELECT sents,id from st")
     ls = cur.execute("SELECT wordlist,id from sw")
-    print("sentence")
-    for each in tqdm.tqdm(li):
-        if dataframe.md_5(each[0]).encode() == each[1]:
-            pass
-        else:
-            connect.close()
-            raise Exception("different")
-    print("wordlist")
-    for each in tqdm.tqdm(ls):
-        if dataframe.md_5(each[0]).encode() == each[1]:
+    print("begin")
+    for each in tqdm.tqdm(zip(li, ls)):
+        if dataframe.md_5(each[0][0]).encode() == each[0][1] and dataframe.md_5(each[1][0]).encode() == each[1][1]:
             pass
         else:
             connect.close()
