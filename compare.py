@@ -3,14 +3,25 @@ import tqdm
 import dataframe
 
 
+def generate(li):
+    ls = [each for each in li]
+    for item in tqdm.tqdm(ls):
+        yield item
+
+
 def compare():
     connect = sqlite3.connect('.\\df\\data.db')
-    cur = connect.cursor()
-    li = cur.execute("SELECT sents,id from st")
-    ls = cur.execute("SELECT wordlist,id from sw")
+    li = generate(connect.execute("SELECT sents,id from st"))
+    ls = generate(connect.execute("SELECT wordlist,id from sw"))
     print("begin")
-    for each in tqdm.tqdm(zip(li, ls)):
-        if dataframe.md_5(each[0][0]).encode() == each[0][1] and dataframe.md_5(each[1][0]).encode() == each[1][1]:
+    for each in li:
+        if dataframe.md_5(each[0]).encode() == each[1]:
+            pass
+        else:
+            connect.close()
+            raise Exception("different")
+    for each in ls:
+        if dataframe.md_5(each[0]).encode() == each[1]:
             pass
         else:
             connect.close()
