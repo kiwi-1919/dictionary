@@ -5,7 +5,6 @@ import dataframe
 
 def generate(li):
     ls = [each for each in li]
-    print(len(ls))
     for item in tqdm.tqdm(ls):
         yield item
 
