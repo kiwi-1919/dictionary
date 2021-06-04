@@ -6,6 +6,8 @@ import set_up
 import set_up_more
 import dataframe
 import clean
+
+os.chdir(os.curdir)
 if __name__ == '__main__':
     try:
         os.mkdir(".\\txt")
